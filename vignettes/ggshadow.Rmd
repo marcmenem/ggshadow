@@ -1,0 +1,42 @@
+---
+title: "Shadow path, line and step"
+author: "Marc Menem"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    toc: true
+    theme: cayman
+    highlight: github
+  pdf_document:
+    toc: true
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{shadowtext introduction}
+  %\VignetteDepends{ggplot2}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = TRUE)
+
+library(grid)
+library(ggplot2)
+library(ggshadow)
+```
+
+
+
+## shadow line: `geom_shadowline()` 
+
+
+```{r}
+library(ggshadow)
+
+ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline()
+
+```
+
+
