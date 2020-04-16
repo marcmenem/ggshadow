@@ -19,10 +19,8 @@ vignette: >
 
 
 ```{r include=FALSE}
-knitr::opts_chunk$set(warning = FALSE,
-                      message = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = TRUE)
 
-library(grid)
 library(ggplot2)
 library(ggshadow)
 ```

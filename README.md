@@ -24,3 +24,15 @@ devtools::install_github("marcmenem/ggshadow")
 ## after installing the package
 vignette("ggshadow", package="ggshadow")
 ```
+
+## :chart: Example
+
+```{r}
+library(ggplot2)
+library(ggshadow)
+
+ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline()
+
+```
+
+![example](example.png)
