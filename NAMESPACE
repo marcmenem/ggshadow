@@ -2,9 +2,11 @@
 
 export(GeomShadowLine)
 export(GeomShadowPath)
+export(GeomShadowPoint)
 export(GeomShadowStep)
 export(geom_shadowline)
 export(geom_shadowpath)
+export(geom_shadowpoint)
 export(geom_shadowstep)
 importFrom(ggplot2,Geom)
 importFrom(ggplot2,aes)

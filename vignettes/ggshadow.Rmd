@@ -37,4 +37,21 @@ ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline(
 
 ```
 
+## varying line color
+
+```{r}
+library(ggshadow)
+
+ggplot(economics_long, aes(date, value01, group = variable, colour=value01)) + geom_shadowline()
+
+```
+
+## hadow point example: `geom_shadowpoint()` 
+
+```{r}
+ggplot(mtcars, aes(wt, mpg)) + geom_shadowpoint(aes( color = carb, shadowcolour = ifelse(vs == 1, 'red', 'blue') ))
+
+```
+
+
 
