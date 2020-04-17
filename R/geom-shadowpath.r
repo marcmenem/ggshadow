@@ -137,15 +137,39 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                       end <-   c(group_diff, TRUE)
 
                       if (!constant) {
-                        warn( 'Not implemented varying color, fallback to geom_shadowpath implementation' )
+
+                        #print( munched %>% as.tbl, n=150 )
+                        munched$start <- start
+                        munched$end <- end
+
+                        munched.s <- munched
+                        munched.s$shadow <- T
+                        munched.s$colour <- munched.s$shadowcolour
+                        munched.s$size <- munched.s$shadowsize
+                        munched.s$alpha <- munched.s$shadowalpha
+
+                        munched$shadow <- F
+
+                        munched <- rbind( munched.s, munched)
+                        munched$id <- 2*match(munched$group, unique(munched$group)) - munched$shadow
+
+                        munched <- munched[order(munched$group), c('colour', 'size', 'y', 'x', 'linetype','alpha', 'id', 'start', 'end')]
+
+                        aph <- alpha( munched$colour[munched$start], munched$alpha[munched$start] )
+
+                        # print( munched %>% as.tbl, n=50 )
+
                         grid::segmentsGrob(
-                          munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
+                          munched$x[!munched$end],
+                          munched$y[!munched$end],
+                          munched$x[!munched$start],
+                          munched$y[!munched$start],
                           default.units = "native", arrow = arrow,
                           gp = gpar(
-                            col = alpha(munched$colour, munched$alpha)[!end],
-                            fill = alpha(munched$colour, munched$alpha)[!end],
-                            lwd = munched$size[!end] * .pt,
-                            lty = munched$linetype[!end],
+                            col = alpha(munched$colour, munched$alpha)[!munched$end],
+                            fill = alpha(munched$colour, munched$alpha)[!munched$end],
+                            lwd = munched$size[!munched$end] * .pt,
+                            lty = munched$linetype[!munched$end],
                             lineend = lineend,
                             linejoin = linejoin,
                             linemitre = linemitre

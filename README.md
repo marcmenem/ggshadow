@@ -2,11 +2,6 @@
 
 
 
-## :writing_hand: Authors
-
-Marc Menem 
-
-
 ## :arrow_double_down: Installation
 
 
