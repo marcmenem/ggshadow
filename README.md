@@ -27,6 +27,8 @@ vignette("ggshadow", package="ggshadow")
 
 ## :chart: Example
 
+### With ggshadow
+
 ```{r}
 library(ggplot2)
 library(ggshadow)
@@ -35,4 +37,16 @@ ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline(
 
 ```
 
-![example](example.png)
+![example with](example.png)
+
+
+### Without ggshadow
+
+```{r}
+library(ggplot2)
+
+ggplot(economics_long, aes(date, value01, colour = variable)) + geom_line()
+
+```
+
+![example without](lineex.png)
