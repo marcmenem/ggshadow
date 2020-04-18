@@ -39,6 +39,8 @@ geom_shadowpoint <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @importFrom glue glue
+#' @importFrom rlang warn
 #' @importFrom ggplot2 Geom
 #' @format NULL
 #' @usage NULL

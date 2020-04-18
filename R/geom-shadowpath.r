@@ -64,6 +64,9 @@ geom_shadowpath <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @importFrom glue glue
+#' @importFrom rlang warn
+#' @importFrom rlang abort
 #' @importFrom grid gpar
 #' @importFrom ggplot2 layer
 #' @importFrom ggplot2 ggproto
@@ -103,8 +106,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                                           lineend = "butt", linejoin = "round", linemitre = 10,
                                           na.rm = FALSE) {
                       if (!anyDuplicated(data$group)) {
-                        message_wrap("geom_shadowpath: Each group consists of only one observation. ",
-                                     "Do you need to adjust the group aesthetic?")
+                        message("geom_shadowpath: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
                       }
 
                       # must be sorted on group
