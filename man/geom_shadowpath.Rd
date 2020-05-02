@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom-shadowpath.r
 \name{geom_shadowpath}
 \alias{geom_shadowpath}
-\title{Connect observations, plot a shadow beneath the connected lines to make it easier to read
-a chart with several overlapping observations.}
+\alias{geom_shadowline}
+\alias{geom_shadowstep}
+\title{Connect Observations}
 \usage{
 geom_shadowpath(
   mapping = NULL,
@@ -19,6 +20,30 @@ geom_shadowpath(
   show.legend = NA,
   inherit.aes = TRUE
 )
+
+geom_shadowline(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
+
+geom_shadowstep(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  direction = "hv",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{lineend}{Line end style (round, butt, square).}
@@ -28,38 +53,62 @@ geom_shadowpath(
 \item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{arrow}{Arrow specification, as created by [grid::arrow()].}
+
+\item{direction}{direction of stairs: 'vh' for vertical then horizontal,
+'hv' for horizontal then vertical, or 'mid' for step half-way between
+adjacent x-values.}
 }
 \description{
-`geom_shadowpath()` connects the observations in the order in which they appear
+Plot a shadow beneath the connected lines to make it easier to read a chart with several
+overlapping observations. `geom_shadowpath()` connects the observations in the order in which they appear
 in the data. `geom_shadowline()` connects them in order of the variable on the
 x axis. `geom_shadowstep()` creates a stairstep plot, highlighting exactly
-when changes occur. The `group` aesthetic determines which cases are
-connected together. These functions are designed as a straight replacement
-to the [geom_path()], [geom_line()] and [geom_step()] functions.
+when changes occur.
 }
 \details{
+The `group` aesthetic determines which cases are
+connected together. These functions are designed as a straight replacement
+to the [geom_path()], [geom_line()] and [geom_step()] functions.
 To set the order of drawing, make the `colour` aesthetic a factor, and set the order
 from bottom to top.
 }
+\section{Functions}{
+\itemize{
+\item \code{geom_shadowpath}: Connects observations in the order in which they appear in the data.
+
+\item \code{geom_shadowline}: Connects observations in order of the variable on the x axis.
+
+\item \code{geom_shadowstep}: Creates a stairstep plot, highlighting exactly when changes occur.
+}}
+
 \section{Missing value handling}{
 
-`geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep` handle `NA` as follows:
+`geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep()` handle `NA` as follows:
 
-* If an `NA` occurs in the middle of a line, it breaks the line. No warning
-  is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
-* If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
-  (default), the `NA` is removed with a warning.
-* If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
-  the `NA` is removed silently, without warning.
+*  If an `NA` occurs in the middle of a line, it breaks the line. No warning
+   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
+*  If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
+   (default), the `NA` is removed with a warning.
+*  If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
+   the `NA` is removed silently, without warning.
+}
+
+\section{Aesthetics}{
+
+Adds 3 new aesthetics to [geom_path()]:
+* \code{shadowcolour} defaults to white, controls the color of the shadow.
+* \code{shadowsize} defaults to \code{2.5 * size}, controls the sie of the shadow.
+* \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
 }
 
 \examples{
 # geom_shadowline() is suitable for time series
 library(ggplot2)
-ggplot(economics_long, aes(date, value01, colour = variable)) +
-  geom_shadowline()
+ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline()
+
+ggplot(economics_long, aes(date, value01, colour = value01, group = variable, alpha=date, shadowalpha=1)) + geom_shadowline()
 
 }
 \seealso{
-[geom_path()], [geom_line()], [geom_step()]: Filled paths (polygons);
+[ggplot::geom_path()], [ggplot::geom_line()], [ggplot::geom_step()]: Filled paths (polygons);
 }

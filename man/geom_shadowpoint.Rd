@@ -30,6 +30,14 @@ designed as a drop in replacement for [geom_point()] with an added shadow beneat
 the point to make a busy plot more aesthetically appealing or to make points
 stand out from the rest of the plot.
 }
+\section{Aesthetics}{
+
+Adds 3 new aesthetics to [geom_point()]:
+* \code{shadowcolour} defaults to white, controls the color of the shadow.
+* \code{shadowsize} defaults to \code{1.8 * size}, controls the sie of the shadow.
+* \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+}
+
 \examples{
 library( ggplot2 )
 p <- ggplot(mtcars, aes(wt, mpg))

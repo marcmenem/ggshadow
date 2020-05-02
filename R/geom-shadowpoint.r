@@ -12,6 +12,14 @@
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
 #'   `colour = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.
+#'
+#'
+#' @section Aesthetics:
+#' Adds 3 new aesthetics to [geom_point()]:
+#' * \code{shadowcolour} defaults to white, controls the color of the shadow.
+#' * \code{shadowsize} defaults to \code{1.8 * size}, controls the sie of the shadow.
+#' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+#'
 #' @export
 #' @examples
 #' library( ggplot2 )

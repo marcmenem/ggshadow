@@ -1,15 +1,16 @@
 
 
-#' Connect observations, plot a shadow beneath the connected lines to make it easier to read
-#' a chart with several overlapping observations.
+#' Connect Observations
 #'
-#' `geom_shadowpath()` connects the observations in the order in which they appear
+#' Plot a shadow beneath the connected lines to make it easier to read a chart with several
+#' overlapping observations. `geom_shadowpath()` connects the observations in the order in which they appear
 #' in the data. `geom_shadowline()` connects them in order of the variable on the
 #' x axis. `geom_shadowstep()` creates a stairstep plot, highlighting exactly
-#' when changes occur. The `group` aesthetic determines which cases are
+#' when changes occur.
+#'
+#' The `group` aesthetic determines which cases are
 #' connected together. These functions are designed as a straight replacement
 #' to the [geom_path()], [geom_line()] and [geom_step()] functions.
-#'
 #' To set the order of drawing, make the `colour` aesthetic a factor, and set the order
 #' from bottom to top.
 #'
@@ -17,24 +18,35 @@
 #' @param linejoin Line join style (round, mitre, bevel).
 #' @param linemitre Line mitre limit (number greater than 1).
 #' @param arrow Arrow specification, as created by [grid::arrow()].
-#' @seealso
-#'  [geom_path()], [geom_line()], [geom_step()]: Filled paths (polygons);
-#' @section Missing value handling:
-#' `geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep` handle `NA` as follows:
 #'
-#' * If an `NA` occurs in the middle of a line, it breaks the line. No warning
-#'   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
-#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
-#'   (default), the `NA` is removed with a warning.
-#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
-#'   the `NA` is removed silently, without warning.
+#' @seealso
+#'  [ggplot::geom_path()], [ggplot::geom_line()], [ggplot::geom_step()]: Filled paths (polygons);
+#'
+#' @section Missing value handling:
+#' `geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep()` handle `NA` as follows:
+#'
+#' *  If an `NA` occurs in the middle of a line, it breaks the line. No warning
+#'    is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
+#' *  If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
+#'    (default), the `NA` is removed with a warning.
+#' *  If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
+#'    the `NA` is removed silently, without warning.
+#'
+#' @section Aesthetics:
+#' Adds 3 new aesthetics to [geom_path()]:
+#' * \code{shadowcolour} defaults to white, controls the color of the shadow.
+#' * \code{shadowsize} defaults to \code{2.5 * size}, controls the sie of the shadow.
+#' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+#'
 #' @export
 #' @examples
 #' # geom_shadowline() is suitable for time series
 #' library(ggplot2)
-#' ggplot(economics_long, aes(date, value01, colour = variable)) +
-#'   geom_shadowline()
+#' ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline()
 #'
+#' ggplot(economics_long, aes(date, value01, colour = value01, group = variable, alpha=date, shadowalpha=1)) + geom_shadowline()
+#'
+#' @describeIn geom_shadowpath Connects observations in the order in which they appear in the data.
 geom_shadowpath <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
                       ...,
@@ -218,7 +230,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
 )
 
 
-
+#' @describeIn geom_shadowpath Connects observations in order of the variable on the x axis.
 #' @export
 geom_shadowline <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", na.rm = FALSE, orientation = NA,
@@ -262,6 +274,7 @@ GeomShadowLine <- ggproto("GeomShadowLine", GeomShadowPath,
                     }
 )
 
+#' @describeIn geom_shadowpath Creates a stairstep plot, highlighting exactly when changes occur.
 #' @param direction direction of stairs: 'vh' for vertical then horizontal,
 #'   'hv' for horizontal then vertical, or 'mid' for step half-way between
 #'   adjacent x-values.
