@@ -23,8 +23,9 @@ library(ggshadow)
 
 ## shadow line: `geom_shadowline()` 
 
+The most simple use of `geom_shadowline()` is a simple replacement of `geom_line()` 
 
-```{r}
+```{r fig.height=7, fig.width=7}
 library(ggshadow)
 
 ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline()
@@ -33,16 +34,20 @@ ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline(
 
 ## varying line color
 
-```{r}
+It is possible to draw lines with varying colors, and it is also possible to change the color, alpha and size of the shadow using `shadowcolor`, `shadowsize` and `shadowalpha`.
+
+```{r fig.height=7, fig.width=7}
 library(ggshadow)
 
-ggplot(economics_long, aes(date, value01, group = variable, colour=value01)) + geom_shadowline()
+ggplot(economics_long, aes(date, value01, group = variable, colour=value01, shadowcolor='grey', shadowalpha=0.5, shadowsize=5*(1-value01))) + geom_shadowline()
 
 ```
 
-## hadow point example: `geom_shadowpoint()` 
+## Shadow point example: `geom_shadowpoint()` 
 
-```{r}
+Example using `geom_shadowpoint()`.
+
+```{r fig.height=7, fig.width=7}
 ggplot(mtcars, aes(wt, mpg)) + geom_shadowpoint(aes( color = carb, shadowcolour = ifelse(vs == 1, 'red', 'blue') ))
 
 ```

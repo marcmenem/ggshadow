@@ -4,3 +4,5 @@ Makefile
 README.Rmd
 README.md
 Figs
+^doc$
+^Meta$
