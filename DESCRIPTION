@@ -11,8 +11,7 @@ Imports:
     scales,
     rlang
 Suggests:
-    knitr,
-    prettydoc
+    knitr
 VignetteBuilder: knitr
 License: GPL-2 | file LICENSE
 Encoding: UTF-8
