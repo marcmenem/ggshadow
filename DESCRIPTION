@@ -20,5 +20,6 @@ URL: https://github.com/marcmenem/ggshadow/
 BugReports: https://github.com/marcmenem/ggshadow/issues
 RoxygenNote: 7.1.0
 Collate: 
+    'geom-glowpath.r'
     'geom-shadowpath.r'
     'geom-shadowpoint.r'
