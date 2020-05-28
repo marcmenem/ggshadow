@@ -2,10 +2,10 @@
 
 #' Connect Observations
 #'
-#' Plot a shadow beneath the connected lines to make it easier to read a chart with several
-#' overlapping observations. `geom_shadowpath()` connects the observations in the order in which they appear
-#' in the data. `geom_shadowline()` connects them in order of the variable on the
-#' x axis. `geom_shadowstep()` creates a stairstep plot, highlighting exactly
+#' Plot a glow beneath the connected lines to make it easier to read a chart with several
+#' overlapping observations. `geom_glowpath()` connects the observations in the order in which they appear
+#' in the data. `geom_glowline()` connects them in order of the variable on the
+#' x axis. `geom_glowstep()` creates a stairstep plot, highlighting exactly
 #' when changes occur.
 #'
 #' The `group` aesthetic determines which cases are
@@ -23,7 +23,7 @@
 #'  [ggplot::geom_path()], [ggplot::geom_line()], [ggplot::geom_step()]: Filled paths (polygons);
 #'
 #' @section Missing value handling:
-#' `geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep()` handle `NA` as follows:
+#' `geom_glowpath()`, `geom_glowline()`, and `geom_glowstep()` handle `NA` as follows:
 #'
 #' *  If an `NA` occurs in the middle of a line, it breaks the line. No warning
 #'    is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
@@ -34,20 +34,20 @@
 #'
 #' @section Aesthetics:
 #' Adds 3 new aesthetics to [geom_path()]:
-#' * \code{shadowcolour} defaults to white, controls the color of the shadow.
-#' * \code{shadowsize} defaults to \code{2.5 * size}, controls the size of the shadow.
-#' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+#' * \code{shadowcolour} defaults to path color, controls the color of the shadow.
+#' * \code{shadowsize} defaults to \code{size}, controls the size of the shadow.
+#' * \code{shadowalpha} defaults to \code{0.06 * alpha} or \code{0.06}, controls the alpha of the glow.
 #'
 #' @export
 #' @examples
-#' # geom_shadowline() is suitable for time series
+#' # geom_glowline() is suitable for time series
 #' library(ggplot2)
-#' ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline()
+#' ggplot(economics_long, aes(date, value01, colour = variable)) + geom_glowline()
 #'
-#' ggplot(economics_long, aes(date, value01, colour = value01, group = variable, alpha=date, shadowalpha=1)) + geom_shadowline()
+#' ggplot(economics_long, aes(date, value01, colour = value01, group = variable, alpha=date, glowalpha=1)) + geom_glowline()
 #'
-#' @describeIn geom_shadowpath Connects observations in the order in which they appear in the data.
-geom_shadowpath <- function(mapping = NULL, data = NULL,
+#' @describeIn geom_glowpath Connects observations in the order in which they appear in the data.
+geom_glowpath <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
                       ...,
                       lineend = "butt",
@@ -61,7 +61,7 @@ geom_shadowpath <- function(mapping = NULL, data = NULL,
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomShadowPath,
+    geom = GeomGlowPath,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -87,7 +87,7 @@ geom_shadowpath <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomShadowPath <- ggproto("GeomShadowPath", Geom,
+GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                     required_aes = c("x", "y"),
 
                     default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, shadowcolour=NA, shadowsize=NA, shadowalpha = NA),
@@ -103,13 +103,13 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                       data <- data[kept, ]
 
                       if (!all(kept) && !params$na.rm) {
-                        warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_shadowpath)."))
+                        warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_glowpath)."))
                       }
 
-                      data$shadowcolour[is.na(data$shadowcolour)] <- 'white'
-                      data$shadowsize[is.na(data$shadowsize)] <- data$size * 2.5
-                      data$shadowalpha[is.na(data$shadowalpha)] <- data$alpha * 0.25
-                      data$shadowalpha[is.na(data$shadowalpha)] <- 0.9
+                      data$shadowcolour[is.na(data$shadowcolour)] <- data$colour
+                      data$shadowsize[is.na(data$shadowsize)] <- data$size
+                      data$shadowalpha[is.na(data$shadowalpha)] <- data$alpha * 0.06
+                      data$shadowalpha[is.na(data$shadowalpha)] <- 0.06
 
                       data
                     },
@@ -118,7 +118,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                                           lineend = "butt", linejoin = "round", linemitre = 10,
                                           na.rm = FALSE) {
                       if (!anyDuplicated(data$group)) {
-                        message("geom_shadowpath: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
+                        message("geom_glowpath: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
                       }
 
                       # must be sorted on group
@@ -141,7 +141,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                       solid_lines <- all(attr$solid)
                       constant <- all(attr$constant)
                       if (!solid_lines && !constant) {
-                        abort("geom_shadowpath: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line")
+                        abort("geom_glowpath: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line")
                       }
 
                       # Work out grouping variables for grobs
@@ -152,6 +152,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
 
                       if (!constant) {
 
+                        print('Not implement\n')
                         #print( munched %>% as.tbl, n=150 )
                         munched$start <- start
                         munched$end <- end
@@ -191,20 +192,23 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                         )
                       } else {
 
-                        # print( munched %>% as.tbl, n=150 )
+                        # print( munched %>% as.tbl, n=15 )
                         munched$start <- start
+                        munched$layernum <- 0
+                        munched.i <- munched
 
-                        munched.s <- munched
-                        munched.s$shadow <- T
-                        munched.s$colour <- munched.s$shadowcolour
-                        munched.s$size <- munched.s$shadowsize
-                        munched.s$alpha <- munched.s$shadowalpha
+                        for( i in seq(10)){
+                          munched.s <- munched.i
+                          munched.s$layernum <- i
+                          munched.s$colour <- munched.s$shadowcolour
+                          munched.s$size <- munched.s$shadowsize * i
+                          munched.s$alpha <- munched.s$shadowalpha
 
-                        munched$shadow <- F
+                          munched <- rbind( munched.s, munched)
+                        }
+                        munched$id <- 11*match(munched$group, unique(munched$group)) - munched$layernum
 
-                        munched <- rbind( munched.s, munched)
-                        munched$id <- 2*match(munched$group, unique(munched$group)) - munched$shadow
-
+                        # print( munched %>% as.tbl, n=150 )
                         munched <- munched[order(munched$group), c('colour', 'size', 'y', 'x', 'linetype','alpha', 'id', 'start')]
 
                         aph <- alpha( munched$colour[munched$start], munched$alpha[munched$start] )
@@ -230,18 +234,18 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
 )
 
 
-#' @describeIn geom_shadowpath Connects observations in order of the variable on the x axis.
+#' @describeIn geom_glowpath Connects observations in order of the variable on the x axis.
 #' @export
-geom_shadowline <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_glowline <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...) {
-  # cat('shadow line\n')
+  # cat('glow line\n')
 
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomShadowLine,
+    geom = GeomGlowLine,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -257,8 +261,8 @@ geom_shadowline <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-shadowpath.r
-GeomShadowLine <- ggproto("GeomShadowLine", GeomShadowPath,
+#' @include geom-glowpath.r
+GeomGlowLine <- ggproto("GeomGlowLine", GeomGlowPath,
                     setup_params = function(data, params) {
                       params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
                       params
@@ -274,19 +278,19 @@ GeomShadowLine <- ggproto("GeomShadowLine", GeomShadowPath,
                     }
 )
 
-#' @describeIn geom_shadowpath Creates a stairstep plot, highlighting exactly when changes occur.
+#' @describeIn geom_glowpath Creates a stairstep plot, highlighting exactly when changes occur.
 #' @param direction direction of stairs: 'vh' for vertical then horizontal,
 #'   'hv' for horizontal then vertical, or 'mid' for step half-way between
 #'   adjacent x-values.
 #' @export
-geom_shadowstep <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_glowstep <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", direction = "hv",
                       na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomShadowStep,
+    geom = GeomGlowStep,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -302,11 +306,11 @@ geom_shadowstep <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-shadowpath.r
-GeomShadowStep <- ggproto("GeomShadowStep", GeomShadowPath,
+#' @include geom-glowpath.r
+GeomGlowStep <- ggproto("GeomGlowStep", GeomGlowPath,
                     draw_panel = function(data, panel_params, coord, direction = "hv") {
                       data <- dapply(data, "group", stairstep, direction = direction)
-                      GeomShadowPath$draw_panel(data, panel_params, coord)
+                      GeomGlowPath$draw_panel(data, panel_params, coord)
                     }
 )
 
