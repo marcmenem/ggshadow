@@ -84,7 +84,6 @@ ggplot(economics_long, aes(date, value01, color = variable)) +
 
 ### Neon glow points
 
-
 ```{r}
 
 ggplot(mtcars, aes(wt, mpg)) + 
