@@ -1,4 +1,4 @@
-# ggshadow: Shadow Geoms for ggplot2
+# `ggshadow`: Shadow Geoms for ggplot2
 
 
 
@@ -46,9 +46,46 @@ ggplot(economics_long, aes(date, value01, colour = variable)) + geom_line()
 
 ![example without](lineex.png)
 
+
+### `ggshadow` supports varying the line color
+
+```{r}
+library(ggshadow)
+library(ggplot2)
+
+ggplot(economics_long, aes(date, value01, group = variable, colour=value01, shadowcolor='grey', shadowalpha=0.5, shadowsize=5*(1-value01))) + geom_shadowline()
+
+```
+
+![color varying](colorvarex.png)
+
+
 ### `ggshadow` also provides a Neon glow style
 
-See vignette for example code.
+
+```{r fig.height=7, fig.width=7}
+
+ggplot(economics_long, aes(date, value01, color = variable)) + 
+  geom_glowline() + guides(color='none') + 
+  theme(plot.background = element_rect(fill = "#190132"),
+        panel.background = element_rect(fill = "#190132")) 
+
+```
 
 ![glowline](example-glow.png)
+
+
+### Neon glow stylred points
+
+
+```{r}
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_glowpoint(color='yellow') + 
+  guides(color='none') + 
+  theme(plot.background = element_rect(fill = "#190132"),
+        panel.background = element_rect(fill = "#190132")) 
+
+```
+
 ![glowpoint](example-glowpoint.png)
