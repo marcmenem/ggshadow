@@ -95,3 +95,17 @@ ggplot(mtcars, aes(wt, mpg)) +
 ```
 
 ![glowpoint](example-glowpoint.png)
+
+### Adding a fill below the neon glow line
+
+```{r}
+library(dplyr)
+
+ggplot(filter( economics_long, variable %in% c('pop', 'unemploy') ), 
+    aes(date, value01-0.5, color = variable, fill=variable)) + 
+    geom_glowline() + guides(color='none', shadowcolour='none', fill='none') + 
+    theme(plot.background = element_rect(fill = "#190132"),
+           panel.background = element_rect(fill = "#190132")) 
+```
+
+![glowlinefll](example-glowlinefill.png)

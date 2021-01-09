@@ -90,7 +90,20 @@ geom_glowpath <- function(mapping = NULL, data = NULL,
 GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                     required_aes = c("x", "y"),
 
-                    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, shadowcolour=NA, shadowsize=NA, shadowalpha = NA),
+                    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA,
+                                      shadowcolour=NA, shadowsize=NA, shadowalpha = NA,
+                                      fill=NA),
+
+                    setup_data = function(data, params) {
+                      data$flipped_aes <- params$flipped_aes
+                      data <- flip_data(data, params$flipped_aes)
+                      data <- transform(data[order(data$PANEL, data$group), ], ymin = 0, ymax = y)
+
+                      # cat( crayon::yellow('setup_data (GlowPath)\n') )
+                      # print( data %>% as_tibble )
+
+                      flip_data(data, params$flipped_aes)
+                    },
 
                     handle_na = function(data, params) {
                       # Drop missing values at the start or end of a line - can't drop in the
@@ -111,6 +124,9 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                       data$shadowalpha[is.na(data$shadowalpha)] <- data$alpha * 0.06
                       data$shadowalpha[is.na(data$shadowalpha)] <- 0.06
 
+                      # cat( crayon::yellow('handle_na (GlowPath)\n') )
+                      # print( data %>% as_tibble )
+
                       data
                     },
 
@@ -121,9 +137,15 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                         message("geom_glowpath: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
                       }
 
+                      # cat( crayon::yellow('draw_panel data (GlowPath)\n') )
+                      # print( data %>% as_tibble )
+
                       # must be sorted on group
                       data <- data[order(data$group), , drop = FALSE]
                       munched <- coord_munch(coord, data, panel_params)
+
+                      # cat( crayon::yellow('draw_panel munched (GlowPath)\n') )
+                      # print( munched %>% as_tibble )
 
                       # Silently drop lines with less than two points, preserving order
                       rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
@@ -135,7 +157,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                         linetype <- unique(df$linetype)
                         new_data_frame(list(
                           solid = identical(linetype, 1) || identical(linetype, "solid"),
-                          constant = nrow(unique(df[, c("alpha", "colour","size", "linetype", 'shadowcolour', 'shadowsize', 'shadowalpha')])) == 1
+                          constant = nrow(unique(df[, c("alpha", "colour","size", "linetype", 'shadowcolour', 'shadowsize', 'shadowalpha', 'fill')])) == 1
                         ), n = 1)
                       })
                       solid_lines <- all(attr$solid)
@@ -191,7 +213,6 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                           )
                         )
                       } else {
-
                         # print( munched %>% as.tbl, n=15 )
                         munched$start <- start
                         munched$layernum <- 0
@@ -208,12 +229,12 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                         }
                         munched$id <- 11*match(munched$group, unique(munched$group)) - munched$layernum
 
-                        # print( munched %>% as.tbl, n=150 )
+                        # print( munched %>% as_tibble, n=150 )
                         munched <- munched[order(munched$group), c('colour', 'size', 'y', 'x', 'linetype','alpha', 'id', 'start')]
 
                         aph <- alpha( munched$colour[munched$start], munched$alpha[munched$start] )
 
-                        grid::polylineGrob(
+                        g_lines <- grid::polylineGrob(
                           munched$x, munched$y, id = munched$id,
                           default.units = "native", arrow = arrow,
                           gp = gpar(
@@ -226,6 +247,44 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                             linemitre = linemitre
                           )
                         )
+
+
+                        if (!is.na(munched.i$fill[1])){
+                          grl <- unique(munched.i$group)
+
+                          polys <- gList(g_lines)
+                          for( gr in grl){
+                            munched.g <- subset(munched.i, group == gr)
+                            fillcolour <- munched.g$fill[1]
+                            fillalpha  <- munched.g$shadowalpha[1] * 8
+
+                            # cat(crayon::red('Group', gr), fillcolour, fillalpha, '\n')
+                            # print( munched.g %>% as_tibble) #, n=Inf )
+
+                            minx <- min( munched.g$x )
+                            maxx <- max( munched.g$x )
+                            miny <- munched.g$ymin[1]
+
+                            g_poly <- grid::polygonGrob(
+                              c(minx, munched.g$x, maxx),
+                              c(miny, munched.g$y, miny),
+                              default.units = "native",
+                              gp = gpar(
+                                fill = alpha(fillcolour, fillalpha),
+                                col = NA
+                              )
+                            )
+
+                            polys <- gList( polys, g_poly )
+                          }
+
+                          # str( polys )
+
+                          ggname("geom_glowline", grid::grobTree(polys))
+                        } else {
+                          # cat(crayon::red('No fill colour\n'))
+                          ggname("geom_glowline", g_lines)
+                        }
 
                       }
                     },
@@ -273,7 +332,13 @@ GeomGlowLine <- ggproto("GeomGlowLine", GeomGlowPath,
                     setup_data = function(data, params) {
                       data$flipped_aes <- params$flipped_aes
                       data <- flip_data(data, params$flipped_aes)
-                      data <- data[order(data$PANEL, data$group, data$x), ]
+
+                      #data <- data[order(data$PANEL, data$group, data$x), ]
+                      data <- transform(data[order(data$PANEL, data$group, data$x), ], ymin = 0, ymax = y)
+
+                      # cat( crayon::yellow('setup_data (GlowLine)\n') )
+                      # print( data %>% as_tibble )
+
                       flip_data(data, params$flipped_aes)
                     }
 )

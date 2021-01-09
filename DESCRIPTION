@@ -24,3 +24,4 @@ Collate:
     'geom-shadowpath.r'
     'geom-shadowpoint.r'
     'geom-glowpoint.r'
+    'scale-shadow.r'

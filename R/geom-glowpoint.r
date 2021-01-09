@@ -128,4 +128,3 @@ GeomGlowPoint <- ggproto("GeomGlowPoint", Geom,
 # translate_shape_string <- getFromNamespace("translate_shape_string", "ggplot2")
 # draw_key_point <- getFromNamespace("draw_key_point", "ggplot2")
 
-
