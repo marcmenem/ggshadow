@@ -152,7 +152,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
 
                       if (!constant) {
 
-                        print('Not implement\n')
+                        print('Varying color, alpha, size, linetype or shadow is not implmeted for glow (defaulting to shadowline)\n')
                         #print( munched %>% as.tbl, n=150 )
                         munched$start <- start
                         munched$end <- end

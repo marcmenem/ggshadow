@@ -45,3 +45,10 @@ ggplot(economics_long, aes(date, value01, colour = variable)) + geom_line()
 ```
 
 ![example without](lineex.png)
+
+### `ggshadow` also provides a Neon glow style
+
+See vignette for example code.
+
+![glowline](example-glow.png)
+![glowpoint](example-glowpoint.png)
