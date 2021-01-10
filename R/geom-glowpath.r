@@ -275,7 +275,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                               )
                             )
 
-                            polys <- gList( polys, g_poly )
+                            polys <- grid::gList( polys, g_poly )
                           }
 
                           # str( polys )
