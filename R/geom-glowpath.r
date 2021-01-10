@@ -252,7 +252,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                         if (!is.na(munched.i$fill[1])){
                           grl <- unique(munched.i$group)
 
-                          polys <- gList(g_lines)
+                          polys <- grid::gList(g_lines)
                           for( gr in grl){
                             munched.g <- subset(munched.i, group == gr)
                             fillcolour <- munched.g$fill[1]
@@ -383,6 +383,7 @@ keep_mid_true <- getFromNamespace("keep_mid_true", "ggplot2")
 dapply <- getFromNamespace("dapply", "ggplot2")
 stairstep <- getFromNamespace("stairstep", "ggplot2")
 new_data_frame <- getFromNamespace("new_data_frame", "ggplot2")
+ggname <- getFromNamespace("ggname", "ggplot2")
 # draw_key_path <- getFromNamespace("draw_key_path", "ggplot2")
 
 
