@@ -1,24 +1,17 @@
 
-discrete_scale <- getFromNamespace("discrete_scale", "ggplot2")
-hue_pal <- getFromNamespace("hue_pal", "ggplot2")
-brewer_pal <- getFromNamespace("brewer_pal", "ggplot2")
-gradient_n_pal <- getFromNamespace("gradient_n_pal", "ggplot2")
 ScaleDiscreteIdentity <- getFromNamespace("ScaleDiscreteIdentity", "ggplot2")
+
 binned_scale <- getFromNamespace("binned_scale", "ggplot2")
-seq_gradient_pal <- getFromNamespace("seq_gradient_pal", "ggplot2")
-div_gradient_pal <- getFromNamespace("div_gradient_pal", "ggplot2")
-mid_rescaler <- getFromNamespace("mid_rescaler", "ggplot2")
+discrete_scale <- getFromNamespace("discrete_scale", "ggplot2")
 datetime_scale <- getFromNamespace("datetime_scale", "ggplot2")
-viridis_pal <- getFromNamespace("viridis_pal", "ggplot2")
 manual_scale <- getFromNamespace("manual_scale", "ggplot2")
-
-
+mid_rescaler <- getFromNamespace("mid_rescaler", "ggplot2")
 
 
 #' @export
 scale_shadowcolour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                                         direction = 1, na.value = "grey50", aesthetics = "shadowcolour") {
-  discrete_scale(aesthetics, "hue", hue_pal(h, c, l, h.start, direction),
+  discrete_scale(aesthetics, "hue", scales::hue_pal(h, c, l, h.start, direction),
                  na.value = na.value, ...)
 }
 
@@ -27,7 +20,7 @@ scale_shadowcolour_discrete <- scale_shadowcolour_hue
 
 #' @export
 scale_shadowcolour_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "shadowcolour") {
-  discrete_scale(aesthetics, "brewer", brewer_pal(type, palette, direction), ...)
+  discrete_scale(aesthetics, "brewer", scales::brewer_pal(type, palette, direction), ...)
 }
 
 #' @export
@@ -38,7 +31,7 @@ scale_shadowcolour_distiller <- function(..., type = "seq", palette = 1, directi
     warn("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
   continuous_scale(aesthetics, "distiller",
-                   gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
+                   scales::gradient_n_pal(scales::brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
   # NB: 6-7 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
   # For diverging scales, you need an odd number to make sure the mid-point is in the center
 }
@@ -50,7 +43,7 @@ scale_shadowcolour_fermenter <- function(..., type = "seq", palette = 1, directi
   if (type == "qual") {
     warn("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
-  binned_scale(aesthetics, "fermenter", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
+  binned_scale(aesthetics, "fermenter", binned_pal(scales::brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
 
 #' @export
@@ -93,7 +86,7 @@ scale_shadowcolour_binned <- function(...,
 #' @export
 scale_shadowcolour_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                na.value = "grey50", guide = "coloursteps", aesthetics = "shadowcolour") {
-  binned_scale(aesthetics, "steps", seq_gradient_pal(low, high, space),
+  binned_scale(aesthetics, "steps", scales::seq_gradient_pal(low, high, space),
                na.value = na.value, guide = guide, ...)
 }
 
@@ -101,7 +94,7 @@ scale_shadowcolour_steps <- function(..., low = "#132B43", high = "#56B1F7", spa
 scale_shadowcolour_steps2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
                                 midpoint = 0, space = "Lab", na.value = "grey50", guide = "coloursteps",
                                 aesthetics = "shadowcolour") {
-  binned_scale(aesthetics, "steps2", div_gradient_pal(low, mid, high, space),
+  binned_scale(aesthetics, "steps2", scales::div_gradient_pal(low, mid, high, space),
                na.value = na.value, guide = guide, rescaler = mid_rescaler(mid = midpoint), ...)
 }
 
@@ -110,13 +103,13 @@ scale_shadowcolour_stepsn <- function(..., colours, values = NULL, space = "Lab"
                                 guide = "coloursteps", aesthetics = "shadowcolour", colors) {
   colours <- if (missing(colours)) colors else colours
   binned_scale(aesthetics, "stepsn",
-               gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+               scales::gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
 }
 
 #' @export
 scale_shadowcolour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                   na.value = "grey50", guide = "colourbar", aesthetics = "shadowcolour") {
-  continuous_scale(aesthetics, "gradient", seq_gradient_pal(low, high, space),
+  continuous_scale(aesthetics, "gradient", scales::seq_gradient_pal(low, high, space),
                    na.value = na.value, guide = guide, ...)
 }
 
@@ -125,7 +118,7 @@ scale_shadowcolour_gradient2 <- function(..., low = muted("red"), mid = "white",
                                    midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar",
                                    aesthetics = "shadowcolour") {
   continuous_scale(aesthetics, "gradient2",
-                   div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
+                   scales::div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
                    rescaler = mid_rescaler(mid = midpoint))
 }
 
@@ -135,7 +128,7 @@ scale_shadowcolour_gradientn <- function(..., colours, values = NULL, space = "L
   colours <- if (missing(colours)) colors else colours
 
   continuous_scale(aesthetics, "gradientn",
-                   gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+                   scales::gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
 }
 
 #' @export
@@ -148,7 +141,7 @@ scale_shadowcolour_datetime <- function(...,
   datetime_scale(
     "shadowcolour",
     "time",
-    palette = seq_gradient_pal(low, high, space),
+    palette = scales::seq_gradient_pal(low, high, space),
     na.value = na.value,
     guide = guide,
     ...
@@ -165,7 +158,7 @@ scale_shadowcolour_date <- function(...,
   datetime_scale(
     "shadowcolour",
     "date",
-    palette = seq_gradient_pal(low, high, space),
+    palette = scales::seq_gradient_pal(low, high, space),
     na.value = na.value,
     guide = guide,
     ...
@@ -184,7 +177,7 @@ scale_shadowcolour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
   discrete_scale(
     aesthetics,
     "viridis_d",
-    viridis_pal(alpha, begin, end, direction, option),
+    scales::viridis_pal(alpha, begin, end, direction, option),
     ...
   )
 
@@ -198,8 +191,8 @@ scale_shadowcolour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
   continuous_scale(
     aesthetics,
     "viridis_c",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
+    scales::gradient_n_pal(
+      scales::viridis_pal(alpha, begin, end, direction, option)(6),
       values,
       space
     ),
@@ -217,8 +210,8 @@ scale_shadowcolour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
   binned_scale(
     aesthetics,
     "viridis_b",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
+    scales::gradient_n_pal(
+      scales::viridis_pal(alpha, begin, end, direction, option)(6),
       values,
       space
     ),
