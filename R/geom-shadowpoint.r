@@ -121,7 +121,7 @@ GeomShadowPoint <- ggproto("GeomShadowPoint", Geom,
   # draw_key = draw_key_point
 )
 
-translate_shape_string <- getFromNamespace("translate_shape_string", "ggplot2")
+# translate_shape_string <- getFromNamespace("translate_shape_string", "ggplot2")
 # draw_key_point <- getFromNamespace("draw_key_point", "ggplot2")
 
 
