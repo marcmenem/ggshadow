@@ -97,9 +97,9 @@ scale_shadowcolour_continuous <- function(...,
   if (is.function(type)) {
     type(...)
   } else if (identical(type, "gradient")) {
-    scale_colour_gradient(...)
+    scale_shadowcolour_gradient(...)
   } else if (identical(type, "viridis")) {
-    scale_colour_viridis_c(...)
+    scale_shadowcolour_viridis_c(...)
   } else {
     abort("Unknown scale type")
   }
@@ -110,9 +110,9 @@ scale_shadowcolour_binned <- function(...,
   if (is.function(type)) {
     type(...)
   } else if (identical(type, "gradient")) {
-    scale_colour_steps(...)
+    scale_shadowcolour_steps(...)
   } else if (identical(type, "viridis")) {
-    scale_colour_viridis_b(...)
+    scale_shadowcolour_viridis_b(...)
   } else {
     abort("Unknown scale type")
   }
@@ -255,3 +255,8 @@ scale_shadowcolour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
 
 
 scale_shadowcolour_ordinal <- scale_shadowcolour_viridis_d
+
+
+scale_shadowcolour_manual <- function(..., values, aesthetics = "shadowcolour", breaks = waiver()) {
+  manual_scale(aesthetics, values, breaks, ...)
+}
