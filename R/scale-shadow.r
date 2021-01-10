@@ -1,5 +1,18 @@
 
 discrete_scale <- getFromNamespace("discrete_scale", "ggplot2")
+hue_pal <- getFromNamespace("hue_pal", "ggplot2")
+brewer_pal <- getFromNamespace("brewer_pal", "ggplot2")
+gradient_n_pal <- getFromNamespace("gradient_n_pal", "ggplot2")
+ScaleDiscreteIdentity <- getFromNamespace("ScaleDiscreteIdentity", "ggplot2")
+binned_scale <- getFromNamespace("binned_scale", "ggplot2")
+seq_gradient_pal <- getFromNamespace("seq_gradient_pal", "ggplot2")
+div_gradient_pal <- getFromNamespace("div_gradient_pal", "ggplot2")
+mid_rescaler <- getFromNamespace("mid_rescaler", "ggplot2")
+datetime_scale <- getFromNamespace("datetime_scale", "ggplot2")
+viridis_pal <- getFromNamespace("viridis_pal", "ggplot2")
+manual_scale <- getFromNamespace("manual_scale", "ggplot2")
+
+
 
 
 #' @export
