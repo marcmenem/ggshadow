@@ -8,7 +8,7 @@ Description: A collection of geoms for R's 'ggplot2' library. geom_shadowpath(),
     neon glow around lines to get a steampunk style.
 Depends: R (>= 3.4.0)
 Imports:
-    ggplot2,
+    ggplot2 (>= 3.3.0),
     grid,
     scales,
     rlang, 
