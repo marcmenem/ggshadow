@@ -1,9 +1,11 @@
 Package: ggshadow
-Title: Shadow Geoms for ggplot2
-Version: 0.0.1
+Title: Shadow and Glow Geoms for ggplot2
+Version: 0.0.2
 Authors@R: person("Marc", "Menem", email = "marc.menem@m4x.org", role = c("aut", "cre"))
-Description: Implement geom_shadowpath(), geom_shadowline(), geom_shadowstep() and geom_shadowpoint() for 'ggplot2'.
-             These functions draw a shadow below points or lines to make busy plots more aesthetically pleasing.
+Description: A collection of geoms for R's 'ggplot2' library. geom_shadowpath(), geom_shadowline(), 
+    geom_shadowstep() and geom_shadowpoint() functions draw a shadow below lines to make busy plots more 
+    aesthetically pleasing. geom_glowpath(), geom_glowline(), geom_glowstep() and geom_glowpoint() add a 
+    neon glow around lines to get a steampunk style.
 Depends: R (>= 3.4.0)
 Imports:
     ggplot2,

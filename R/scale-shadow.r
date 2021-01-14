@@ -252,4 +252,4 @@ scale_shadowcolour_ordinal <- scale_shadowcolour_viridis_d
 scale_shadowcolour_manual <- function(..., values, aesthetics = "shadowcolour", breaks = waiver()) {
   manual_scale(aesthetics, values, breaks, ...)
 }
-s
+
