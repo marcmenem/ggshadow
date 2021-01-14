@@ -9,7 +9,8 @@ Imports:
     ggplot2,
     grid,
     scales,
-    rlang
+    rlang, 
+    glue
 Suggests:
     knitr
 VignetteBuilder: knitr
@@ -24,4 +25,5 @@ Collate:
     'geom-glowpoint.r'
     'geom-shadowpath.r'
     'geom-shadowpoint.r'
+    'internal-doc.R'
     'scale-shadow.r'

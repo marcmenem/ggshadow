@@ -5,7 +5,7 @@
 #' the point to make a busy plot more aesthetically appealing or to make points
 #' stand out from the rest of the plot.
 #'
-#'
+#' @inheritParams ggshadow-params
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
 #' @param ... Other arguments passed on to [layer()]. These are
@@ -47,6 +47,8 @@ geom_glowpoint <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @rdname ggshadow-ggproto
+#' @importFrom glue glue
 #' @importFrom glue glue
 #' @importFrom rlang warn
 #' @importFrom ggplot2 Geom

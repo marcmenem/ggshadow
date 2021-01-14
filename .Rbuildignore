@@ -6,3 +6,5 @@ README.md
 Figs
 ^doc$
 ^Meta$
+^.*\.png
+LICENSE\.md

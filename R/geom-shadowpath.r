@@ -14,10 +14,21 @@
 #' To set the order of drawing, make the `colour` aesthetic a factor, and set the order
 #' from bottom to top.
 #'
+#' @inheritParams ggshadow-params
 #' @param lineend Line end style (round, butt, square).
 #' @param linejoin Line join style (round, mitre, bevel).
 #' @param linemitre Line mitre limit (number greater than 1).
 #' @param arrow Arrow specification, as created by [grid::arrow()].
+#' @param na.rm If `FALSE`, the default, missing values are removed with
+#'   a warning. If `TRUE`, missing values are silently removed.
+#' @param ... Other arguments passed on to [layer()]. These are
+#'   often aesthetics, used to set an aesthetic to a fixed value, like
+#'   `colour = "red"` or `size = 3`. They may also be parameters
+#'   to the paired geom/stat.
+#' @param orientation The orientation of the layer. The default (`NA`)
+#' automatically determines the orientation from the aesthetic mapping. In the
+#' rare event that this fails it can be given explicitly by setting `orientation`
+#' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #'
 #' @seealso
 #'  [ggplot::geom_path()], [ggplot::geom_line()], [ggplot::geom_step()]: Filled paths (polygons);
@@ -44,7 +55,9 @@
 #' library(ggplot2)
 #' ggplot(economics_long, aes(date, value01, colour = variable)) + geom_shadowline()
 #'
-#' ggplot(economics_long, aes(date, value01, colour = value01, group = variable, alpha=date, shadowalpha=1)) + geom_shadowline()
+#' ggplot(economics_long, aes(date, value01, colour = value01,
+#'                            group = variable, alpha=date, shadowalpha=1)) +
+#'           geom_shadowline()
 #'
 #' @describeIn geom_shadowpath Connects observations in the order in which they appear in the data.
 geom_shadowpath <- function(mapping = NULL, data = NULL,
@@ -76,6 +89,7 @@ geom_shadowpath <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @rdname ggshadow-ggproto
 #' @importFrom glue glue
 #' @importFrom rlang warn
 #' @importFrom rlang abort
@@ -253,7 +267,7 @@ geom_shadowline <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-
+#' @rdname ggshadow-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -298,7 +312,7 @@ geom_shadowstep <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-
+#' @rdname ggshadow-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
