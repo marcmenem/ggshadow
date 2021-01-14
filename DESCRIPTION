@@ -27,5 +27,5 @@ Collate:
     'geom-glowpoint.r'
     'geom-shadowpath.r'
     'geom-shadowpoint.r'
-    'internal-doc.R'
+    'internal-doc.r'
     'scale-shadow.r'
