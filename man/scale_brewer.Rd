@@ -73,7 +73,7 @@ colour bar, or \code{"legend"} for discrete colour legend.}
 \description{
 The `brewer` scales provides sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
-display discrete values on a map. See \url{http://colorbrewer2.org} for
+display discrete values on a map. See \url{https://colorbrewer2.org} for
 more information.
 }
 \details{
