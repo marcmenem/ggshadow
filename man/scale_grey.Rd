@@ -81,9 +81,19 @@ name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
 same time, via \code{aesthetics = c("colour", "fill")}.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 Based on [gray.colors()]. This is black and white equivalent
 of [scale_colour_gradient()].
+}
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolour=as.factor(gear)))
+p + geom_glowpoint() + scale_shadowcolour_grey() + guides(shadowcolour='none')
+
+
 }
 \seealso{
 Other colour scales: 

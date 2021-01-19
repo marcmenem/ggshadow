@@ -149,6 +149,9 @@ to map an arbitrary range to between 0 and 1.}
 
 \item{colors}{Vector of colours to use for n-colour gradient.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 `scale_*_steps` creates a two colour binned gradient (low-high),
 `scale_*_steps2` creates a diverging binned colour gradient (low-mid-high),
@@ -162,6 +165,21 @@ Default colours are generated with \pkg{munsell} and
 colour scales you want to keep hue constant, but vary chroma and
 luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.
+}
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=gear))
+p + geom_shadowpoint() + scale_shadowcolour_steps() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=gear))
+p + geom_shadowpoint() + scale_shadowcolour_steps2() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=gear))
+p <- p + geom_shadowpoint() + scale_shadowcolour_stepsn(colours=c('red', 'yellow'))
+p + guides(shadowcolour='none')
+
 }
 \seealso{
 [scales::seq_gradient_pal()] for details on underlying

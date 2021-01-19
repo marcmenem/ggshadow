@@ -20,6 +20,8 @@
 #' * \code{shadowsize} defaults to \code{1.8 * size}, controls the sie of the shadow.
 #' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
 #'
+#' @return a layer to add to a plot.
+#'
 #' @export
 #' @examples
 #' library( ggplot2 )

@@ -41,6 +41,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. [borders()].}
 }
+\value{
+a layer object to add to a plot.
+}
 \description{
 Default params for geoms
 }

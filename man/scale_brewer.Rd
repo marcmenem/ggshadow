@@ -70,6 +70,9 @@ other values are deprecated.}
 \item{guide}{Type of legend. Use \code{"colourbar"} for continuous
 colour bar, or \code{"legend"} for discrete colour legend.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 The `brewer` scales provides sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
@@ -98,6 +101,21 @@ The following palettes are available for use with these scales:
 Modify the palette through the `palette` arguement.
 }
 
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=as.factor(gear)))
+p + geom_shadowpoint() + scale_shadowcolour_brewer()
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=gear))
+p + geom_shadowpoint() + scale_shadowcolour_distiller() + guides(shadowcolor='none')
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=as.factor(gear)))
+p + geom_shadowpoint() + scale_shadowcolour_brewer()
+
+
+}
 \seealso{
 Other colour scales: 
 \code{\link{scale_colour_hue}},

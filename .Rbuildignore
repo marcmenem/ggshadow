@@ -8,4 +8,5 @@ Figs
 ^Meta$
 ^.*\.png
 LICENSE\.md
+LICENSE
 cran-comments\.md

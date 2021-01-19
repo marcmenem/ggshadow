@@ -25,6 +25,9 @@ scale_shadowcolour_binned(
 * "viridis"
 * A function that returns a continuous colour scale.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 Colour scales for continuous data default to the values of the
 `ggplot2.continuous.colour` and `ggplot2.continuous.fill` options. These
@@ -48,6 +51,17 @@ see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
 and references therein.
 }
 
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=gear))
+p + geom_shadowpoint() + scale_shadowcolour_continuous() + guides(shadowcolour='none')
+
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=gear))
+p + geom_shadowpoint() + scale_shadowcolour_binned() + guides(shadowcolour='none')
+
+}
 \seealso{
 [scale_colour_gradient()], [scale_colour_viridis_c()],
   [scale_colour_steps()], [scale_colour_viridis_b()], [scale_fill_gradient()],

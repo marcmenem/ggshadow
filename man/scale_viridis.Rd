@@ -93,11 +93,32 @@ other values are deprecated.}
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[ggplot2:guides]{guides()}} for more information.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 The `viridis` scales provide colour maps that are perceptually uniform in both
 colour and black-and-white. They are also designed to be perceived by viewers
 with common forms of colour blindness. See also
 <https://bids.github.io/colormap/>.
+}
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolour=as.factor(gear)))
+p + geom_glowpoint() + scale_shadowcolour_viridis_d() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolour=gear))
+p + geom_glowpoint() + scale_shadowcolour_viridis_c() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolour=gear))
+p + geom_glowpoint() + scale_shadowcolour_viridis_b() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolour=as.factor(gear)))
+p + geom_glowpoint() + scale_shadowcolour_ordinal() + guides(shadowcolour='none')
+
 }
 \seealso{
 Other colour scales: 

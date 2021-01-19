@@ -50,15 +50,14 @@
 #' * \code{shadowsize} defaults to \code{size}, controls the size of the shadow.
 #' * \code{shadowalpha} defaults to \code{0.06 * alpha} or \code{0.06}, controls the alpha of the glow.
 #'
+#' @return a `ggplot2` layer to add to a plot.
+#'
 #' @export
 #' @examples
 #' # geom_glowline() is suitable for time series
 #' library(ggplot2)
 #' ggplot(economics_long, aes(date, value01, colour = variable)) + geom_glowline()
 #'
-#' ggplot(economics_long, aes(date, value01, colour = value01,
-#'                            group = variable, alpha=date, glowalpha=1)) +
-#'      geom_glowline()
 #'
 #' @describeIn geom_glowpath Connects observations in the order in which they appear in the data.
 geom_glowpath <- function(mapping = NULL, data = NULL,

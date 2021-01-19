@@ -73,6 +73,9 @@ same time, via `aesthetics = c("colour", "fill")`.}
 - A function that takes the limits as input and returns breaks
   as output}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 These functions allow you to specify your own set of mappings from levels in the
 data to aesthetic values.
@@ -103,3 +106,10 @@ see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
 and references therein.
 }
 
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolour=as.factor(gear)))
+p <- p + geom_glowpoint() + guides(shadowcolour='none')
+p + scale_shadowcolour_manual(values=c('red', 'blue', 'green'))
+
+}

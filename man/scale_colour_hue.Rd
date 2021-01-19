@@ -104,10 +104,23 @@ name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the `colour` and `fill` aesthetics at the
 same time, via `aesthetics = c("colour", "fill")`.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 This is the default colour scale for categorical variables. It maps each
 level to an evenly spaced hue on the colour wheel. It does not generate
 colour-blind safe palettes.
+}
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=as.factor(gear)))
+p + geom_shadowpoint() + scale_shadowcolour_hue()
+
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor=as.factor(gear)))
+p + geom_shadowpoint() + scale_shadowcolour_discrete()
+
 }
 \seealso{
 Other colour scales: 

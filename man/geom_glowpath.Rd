@@ -108,6 +108,9 @@ to either `"x"` or `"y"`. See the *Orientation* section for more detail.}
 'hv' for horizontal then vertical, or 'mid' for step half-way between
 adjacent x-values.}
 }
+\value{
+a `ggplot2` layer to add to a plot.
+}
 \description{
 Plot a glow beneath the connected lines to make it easier to read a chart with several
 overlapping observations. `geom_glowpath()` connects the observations in the order in which they appear
@@ -156,9 +159,6 @@ Adds 3 new aesthetics to [geom_path()]:
 library(ggplot2)
 ggplot(economics_long, aes(date, value01, colour = variable)) + geom_glowline()
 
-ggplot(economics_long, aes(date, value01, colour = value01,
-                           group = variable, alpha=date, glowalpha=1)) +
-     geom_glowline()
 
 }
 \seealso{

@@ -108,6 +108,9 @@ to either `"x"` or `"y"`. See the *Orientation* section for more detail.}
 'hv' for horizontal then vertical, or 'mid' for step half-way between
 adjacent x-values.}
 }
+\value{
+a layer to add to a plot.
+}
 \description{
 Plot a shadow beneath the connected lines to make it easier to read a chart with several
 overlapping observations. `geom_shadowpath()` connects the observations in the order in which they appear

@@ -43,6 +43,8 @@ NULL
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
 #'   the default plot specification, e.g. [borders()].
 #'
+#' @return a layer object to add to a plot.
+#'
 #' @keywords internal
 #' @name ggshadow-params
 NULL
@@ -63,6 +65,9 @@ NULL
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @inheritParams scales::hue_pal
 #' @family colour scales
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @name scale_colour_hue
 NULL
 
@@ -107,6 +112,9 @@ NULL
 #'   or [binned_scale()], for `brewer`, `distiller`, and `fermenter` variants
 #'   respectively, to control name, limits, breaks, labels and so forth.
 #' @family colour scales
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @name scale_brewer
 NULL
 
@@ -158,6 +166,9 @@ NULL
 #' see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
 #' and references therein.
 #' @name scale_manual
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @aliases NULL
 NULL
 
@@ -191,6 +202,9 @@ NULL
 #' For more information on color vision deficiencies and suitable color choices
 #' see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
 #' and references therein.
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @name scale_continuous
 NULL
 
@@ -217,6 +231,9 @@ NULL
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @name scale_gradient
 NULL
 
@@ -242,6 +259,9 @@ NULL
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @name scale_colour_steps
 NULL
 
@@ -271,6 +291,9 @@ NULL
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @param guide Guide to use for this scale. Defaults to `"none"`.
 #' @name scale_identity
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @aliases NULL
 NULL
 
@@ -295,6 +318,8 @@ NULL
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @family colour scales
 #'
+#' @return a scale object to add to a plot.
+#'
 #' @name scale_viridis
 NULL
 
@@ -309,5 +334,8 @@ NULL
 #' @inheritParams ggplot2::scale_colour_hue
 #' @inheritDotParams ggplot2::discrete_scale
 #' @family colour scales
+#'
+#' @return a scale object to add to a plot.
+#'
 #' @name scale_grey
 NULL

@@ -1,3 +1,11 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* removed the unnecessary LICENSE file and changed the comment in DESCRIPTION.
+* Added \value to all .Rd files.
+* Added small examples to all .Rd files.
+
+
 ## Test environments
 * local OS X install, R 4.0.0
 * local ubuntu, R 3.6.3

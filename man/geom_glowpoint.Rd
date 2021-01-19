@@ -61,6 +61,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. [borders()].}
 }
+\value{
+a layer to add to a plot.
+}
 \description{
 The point geom is used to create scatterplots. [geom_glowpoint()] is
 designed as a drop in replacement for [geom_point()] with an added glow beneath

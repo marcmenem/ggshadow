@@ -17,6 +17,9 @@ name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the `colour` and `fill` aesthetics at the
 same time, via `aesthetics = c("colour", "fill")`.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 Use this set of scales when your data has already been scaled, i.e. it
 already represents aesthetic values that ggplot2 can handle directly.
@@ -32,4 +35,11 @@ have an optional `aesthetics` argument that can be used to define both `colour` 
 `scale_discrete_identity()` and `scale_continuous_identity()` are generic scales that
 can work with any aesthetic or set of aesthetics provided via the `aesthetics`
 argument.
+}
+\examples{
+library( ggplot2 )
+p <- ggplot(mtcars, aes(wt, mpg, shadowcolor='red'))
+p + geom_shadowpoint() + scale_shadowcolour_identity()
+
+
 }

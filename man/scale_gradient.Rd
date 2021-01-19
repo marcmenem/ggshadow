@@ -179,6 +179,9 @@ to map an arbitrary range to between 0 and 1.}
 
 \item{colors}{Vector of colours to use for n-colour gradient.}
 }
+\value{
+a scale object to add to a plot.
+}
 \description{
 `scale_*_gradient` creates a two colour gradient (low-high),
 `scale_*_gradient2` creates a diverging colour gradient (low-mid-high),
@@ -190,6 +193,29 @@ Default colours are generated with \pkg{munsell} and
 colour scales you want to keep hue constant, but vary chroma and
 luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.
+}
+\examples{
+library( ggplot2 )
+p <- ggplot(economics, aes(date, unemploy, shadowcolor=pce))
+p + geom_shadowline() + scale_shadowcolour_gradient() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(economics, aes(date, unemploy, shadowcolor=pce))
+p + geom_shadowline() + scale_shadowcolour_gradient2() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(economics, aes(date, unemploy, shadowcolor=pce))
+p <- p + geom_shadowline() + scale_shadowcolour_gradientn(colours=c('red', 'green'))
+p + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(economics, aes(uempmed, unemploy, shadowcolor=as.POSIXct(date)))
+p + geom_shadowpath() + scale_shadowcolour_datetime() + guides(shadowcolour='none')
+
+library( ggplot2 )
+p <- ggplot(economics, aes(uempmed, unemploy, shadowcolor=date))
+p + geom_shadowpath() + scale_shadowcolour_date() + guides(shadowcolour='none')
+
 }
 \seealso{
 [scales::seq_gradient_pal()] for details on underlying

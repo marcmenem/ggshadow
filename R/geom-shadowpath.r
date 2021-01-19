@@ -49,6 +49,8 @@
 #' * \code{shadowsize} defaults to \code{2.5 * size}, controls the size of the shadow.
 #' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
 #'
+#' @return a layer to add to a plot.
+#'
 #' @export
 #' @examples
 #' # geom_shadowline() is suitable for time series
