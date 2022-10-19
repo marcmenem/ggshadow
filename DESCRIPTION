@@ -18,7 +18,6 @@ Suggests:
 VignetteBuilder: knitr
 License: GPL-2
 Encoding: UTF-8
-LazyData: true
 URL: https://github.com/marcmenem/ggshadow/
 BugReports: https://github.com/marcmenem/ggshadow/issues
 RoxygenNote: 7.2.1

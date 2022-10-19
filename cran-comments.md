@@ -1,19 +1,13 @@
-## Resubmission
-This is a resubmission. In this version I have:
-
-* removed the unnecessary LICENSE file and changed the comment in DESCRIPTION.
-* Added \value to all .Rd files.
-* Added small examples to all .Rd files.
-
+## Bug fixes
+This is a small fix to support the next version of `ggplot2`.
+The function `new_data_frame` was removed from `ggplot2`. It was replaced by an equivalent function 
+from from `vctrs`.
 
 ## Test environments
-* local OS X install, R 4.0.0
+* local OS X install, R 4.2.1
 * local ubuntu, R 3.6.3
 * Windows (https://win-builder.r-project.org), R-devel
 
 ## R CMD check results
 
-* There were no ERRORs, no WARNINGs and no NOTEs on local builds.
-* 1 note about possible misspelled words (Geoms and steampunk) in the description on win-builder.
-  I think this is fine.
-
+* There were no ERRORs, no WARNINGs and no NOTEs.
