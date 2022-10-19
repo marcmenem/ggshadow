@@ -99,7 +99,7 @@ The following palettes are available for use with these scales:
   \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
      OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 }
-Modify the palette through the `palette` arguement.
+Modify the palette through the `palette` argument.
 }
 
 \examples{
