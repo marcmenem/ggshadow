@@ -12,7 +12,6 @@ Imports:
     grid,
     scales,
     rlang, 
-    vctrs,
     glue
 Suggests:
     rmarkdown, knitr
