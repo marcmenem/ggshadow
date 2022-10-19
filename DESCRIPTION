@@ -1,6 +1,6 @@
 Package: ggshadow
 Title: Shadow and Glow Geoms for 'ggplot2'
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: person("Marc", "Menem", email = "marc.menem@m4x.org", role = c("aut", "cre"))
 Description: A collection of Geoms for R's 'ggplot2' library. geom_shadowpath(), geom_shadowline(), 
     geom_shadowstep() and geom_shadowpoint() functions draw a shadow below lines to make busy plots more 
