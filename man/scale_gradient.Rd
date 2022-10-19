@@ -80,7 +80,8 @@ omitted.}
 \link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}})
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{minor_breaks}}{One of:
 \itemize{
@@ -88,7 +89,8 @@ as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scal
 \item \code{waiver()} for the default breaks (one minor break between
 each major break)
 \item A numeric vector of positions
-\item A function that given the limits returns a vector of minor breaks.
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{n.breaks}}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
@@ -101,7 +103,8 @@ number of breaks given by the transformation.}
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -109,7 +112,8 @@ as output
 \item A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[ggplot2:coord_cartesian]{coord_cartesian()}}).
@@ -118,11 +122,13 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
 diverging and n colour gradients (i.e., \code{\link[ggplot2:scale_colour_gradient2]{scale_colour_gradient2()}},
 \code{\link[ggplot2:scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
-scales, which always use \code{\link[scales:rescale]{scales::rescale()}}.}
+scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also accepts rlang
+\link[rlang:as_function]{lambda} function notation.}
     \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
-(out of bounds).
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
 \item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
@@ -170,14 +176,12 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 \item{midpoint}{The midpoint (in data value) of the diverging scale.
 Defaults to 0.}
 
-\item{colours}{Vector of colours to use for n-colour gradient.}
+\item{colours, colors}{Vector of colours to use for n-colour gradient.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
 \code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
-
-\item{colors}{Vector of colours to use for n-colour gradient.}
 }
 \value{
 a scale object to add to a plot.
@@ -223,8 +227,8 @@ p + geom_shadowpath() + scale_shadowcolour_date() + guides(shadowcolour='none')
 
 Other colour scales: 
 \code{\link{scale_brewer}},
-\code{\link{scale_colour_hue}},
-\code{\link{scale_colour_steps}},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
 \code{\link{scale_grey}},
 \code{\link{scale_viridis}}
 }

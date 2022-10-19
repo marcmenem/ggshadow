@@ -127,13 +127,13 @@ from bottom to top.
 }
 \section{Functions}{
 \itemize{
-\item \code{geom_shadowpath}: Connects observations in the order in which they appear in the data.
+\item \code{geom_shadowpath()}: Connects observations in the order in which they appear in the data.
 
-\item \code{geom_shadowline}: Connects observations in order of the variable on the x axis.
+\item \code{geom_shadowline()}: Connects observations in order of the variable on the x axis.
 
-\item \code{geom_shadowstep}: Creates a stairstep plot, highlighting exactly when changes occur.
+\item \code{geom_shadowstep()}: Creates a stairstep plot, highlighting exactly when changes occur.
+
 }}
-
 \section{Missing value handling}{
 
 `geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep()` handle `NA` as follows:

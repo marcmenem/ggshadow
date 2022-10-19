@@ -169,10 +169,10 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                       # Work out whether we should use lines or segments
                       attr <- dapply(munched, "group", function(df) {
                         linetype <- unique(df$linetype)
-                        new_data_frame(list(
+                        new_data_frame(
                           solid = identical(linetype, 1) || identical(linetype, "solid"),
                           constant = nrow(unique(df[, c("alpha", "colour","size", "linetype", 'shadowcolour', 'shadowsize', 'shadowalpha', 'fill')])) == 1
-                        ), n = 1)
+                        )
                       })
                       solid_lines <- all(attr$solid)
                       constant <- all(attr$constant)
@@ -397,7 +397,7 @@ GeomGlowStep <- ggproto("GeomGlowStep", GeomGlowPath,
 keep_mid_true <- getFromNamespace("keep_mid_true", "ggplot2")
 dapply <- getFromNamespace("dapply", "ggplot2")
 stairstep <- getFromNamespace("stairstep", "ggplot2")
-new_data_frame <- getFromNamespace("new_data_frame", "ggplot2")
+new_data_frame <- getFromNamespace("new_data_frame", "vctrs")
 ggname <- getFromNamespace("ggname", "ggplot2")
 # draw_key_path <- getFromNamespace("draw_key_path", "ggplot2")
 

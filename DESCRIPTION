@@ -1,6 +1,6 @@
 Package: ggshadow
 Title: Shadow and Glow Geoms for 'ggplot2'
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: person("Marc", "Menem", email = "marc.menem@m4x.org", role = c("aut", "cre"))
 Description: A collection of Geoms for R's 'ggplot2' library. geom_shadowpath(), geom_shadowline(), 
     geom_shadowstep() and geom_shadowpoint() functions draw a shadow below lines to make busy plots more 
@@ -12,6 +12,7 @@ Imports:
     grid,
     scales,
     rlang, 
+    vctrs,
     glue
 Suggests:
     rmarkdown, knitr
@@ -21,7 +22,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/marcmenem/ggshadow/
 BugReports: https://github.com/marcmenem/ggshadow/issues
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.1
 Collate: 
     'geom-glowpath.r'
     'geom-glowpoint.r'

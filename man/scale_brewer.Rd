@@ -42,14 +42,15 @@ scale_shadowcolour_fermenter(
 or [binned_scale()], for `brewer`, `distiller`, and `fermenter` variants
 respectively, to control name, limits, breaks, labels and so forth.}
 
-\item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
+\item{type}{One of "seq" (sequential), "div" (diverging) or "qual"
+(qualitative)}
 
 \item{palette}{If a string, will use that named palette. If a number, will index into
 the list of palettes of appropriate `type`. The list of available palettes can found
 in the Palettes section.}
 
 \item{direction}{Sets the order of colours in the scale. If 1, the default,
-colours are as output by \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}. If -1, the
+colours are as output by \code{\link[RColorBrewer:ColorBrewer]{RColorBrewer::brewer.pal()}}. If -1, the
 order of colours is reversed.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
@@ -118,8 +119,8 @@ p + geom_shadowpoint() + scale_shadowcolour_brewer()
 }
 \seealso{
 Other colour scales: 
-\code{\link{scale_colour_hue}},
-\code{\link{scale_colour_steps}},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
 \code{\link{scale_gradient}},
 \code{\link{scale_grey}},
 \code{\link{scale_viridis}}
