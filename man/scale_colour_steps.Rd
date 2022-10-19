@@ -187,7 +187,7 @@ p + guides(shadowcolour='none')
 
 Other colour scales: 
 \code{\link{scale_brewer}},
-\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_hue}},
 \code{\link{scale_gradient}},
 \code{\link{scale_grey}},
 \code{\link{scale_viridis}}
