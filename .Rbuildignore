@@ -1,12 +1,3 @@
-^.*\.Rproj$
-^\.Rproj\.user$
-Makefile
-README.Rmd
-README.md
-Figs
-^doc$
-^Meta$
-^.*\.png
-LICENSE\.md
-LICENSE
-cran-comments\.md
+^CRAN-SUBMISSION$
+^buildnotes.md
+
