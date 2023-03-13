@@ -23,7 +23,7 @@
 #'   a warning. If `TRUE`, missing values are silently removed.
 #' @param ... Other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   `colour = "red"` or `size = 3`. They may also be parameters
+#'   `colour = "red"` or `linewidth = 3`. They may also be parameters
 #'   to the paired geom/stat.
 #' @param orientation The orientation of the layer. The default (`NA`)
 #' automatically determines the orientation from the aesthetic mapping. In the
@@ -46,7 +46,7 @@
 #' @section Aesthetics:
 #' Adds 3 new aesthetics to [geom_path()]:
 #' * \code{shadowcolour} defaults to white, controls the color of the shadow.
-#' * \code{shadowsize} defaults to \code{2.5 * size}, controls the size of the shadow.
+#' * \code{shadowlinewidth} defaults to \code{2.5 * linewidth}, controls the linewidth of the shadow.
 #' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
 #'
 #' @return a layer to add to a plot.
@@ -92,21 +92,17 @@ geom_shadowpath <- function(mapping = NULL, data = NULL,
 }
 
 #' @rdname ggshadow-ggproto
-#' @importFrom glue glue
-#' @importFrom rlang warn
-#' @importFrom rlang abort
-#' @importFrom grid gpar
-#' @importFrom ggplot2 layer
-#' @importFrom ggplot2 ggproto
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 Geom
 #' @format NULL
 #' @usage NULL
 #' @export
+#' @importFrom grid gpar
+#' @importFrom ggplot2 zeroGrob draw_key_path
+#' @importFrom vctrs new_data_frame
+#' @importFrom cli cli_abort
 GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                     required_aes = c("x", "y"),
 
-                    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, shadowcolour=NA, shadowsize=NA, shadowalpha = NA),
+                    default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA, shadowcolour=NA, shadowlinewidth=NA, shadowalpha = NA),
 
                     handle_na = function(data, params) {
                       # Drop missing values at the start or end of a line - can't drop in the
@@ -114,16 +110,19 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                       # print( data %>% as.tbl )
                       # cat('Handle NA\n')
 
-                      complete <- stats::complete.cases(data[c("x", "y", "size", "colour", "linetype")])
+                      complete <- stats::complete.cases(data[c("x", "y", "linewidth", "colour", "linetype")])
                       kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
                       data <- data[kept, ]
 
                       if (!all(kept) && !params$na.rm) {
-                        warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_shadowpath)."))
+                        cli::cli_warn(
+                          "{.fn geom_shadowpath}: Removed {sum(!kept)} row{?s} containing missing values."
+                        )
                       }
 
                       data$shadowcolour[is.na(data$shadowcolour)] <- 'white'
-                      data$shadowsize[is.na(data$shadowsize)] <- data$size * 2.5
+                      data$shadowlinewidth <- data$shadowlinewidth %||% data$shadowsize
+                      data$shadowlinewidth[is.na(data$shadowlinewidth)] <- (data$linewidth %||% data$size) * 2.5
                       data$shadowalpha[is.na(data$shadowalpha)] <- data$alpha * 0.25
                       data$shadowalpha[is.na(data$shadowalpha)] <- 0.9
 
@@ -134,7 +133,13 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                                           lineend = "butt", linejoin = "round", linemitre = 10,
                                           na.rm = FALSE) {
                       if (!anyDuplicated(data$group)) {
-                        message("geom_shadowpath: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
+                        cli::cli_inform(
+                          c(
+                            "!" = "{.fn geom_shadowpath}: Each group consists of
+                            only one observation.",
+                            "*" = "Do you need to adjust the group aesthetic?"
+                          )
+                        )
                       }
 
                       # must be sorted on group
@@ -144,20 +149,23 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                       # Silently drop lines with less than two points, preserving order
                       rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
                       munched <- munched[rows >= 2, ]
-                      if (nrow(munched) < 2) return(zeroGrob())
+                      if (nrow(munched) < 2) return(ggplot2::zeroGrob())
 
                       # Work out whether we should use lines or segments
                       attr <- dapply(munched, "group", function(df) {
                         linetype <- unique(df$linetype)
-                        new_data_frame(
+                        vctrs::new_data_frame(
                           solid = identical(linetype, 1) || identical(linetype, "solid"),
-                          constant = nrow(unique(df[, c("alpha", "colour","size", "linetype", 'shadowcolour', 'shadowsize', 'shadowalpha')])) == 1
+                          constant = nrow(unique(df[, c("alpha", "colour","linewidth", "linetype", 'shadowcolour', 'shadowlinewidth', 'shadowalpha')])) == 1
                         )
                       })
                       solid_lines <- all(attr$solid)
                       constant <- all(attr$constant)
                       if (!solid_lines && !constant) {
-                        abort("geom_shadowpath: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line")
+                        cli::cli_abort(
+                          "{.fn geom_shadowpath}: {.arg {c('colour', 'linewidth', 'linetype')}} must be constant over the
+                          line when {.arg linetype} is not 'solid'."
+                        )
                       }
 
                       # Work out grouping variables for grobs
@@ -175,7 +183,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                         munched.s <- munched
                         munched.s$shadow <- T
                         munched.s$colour <- munched.s$shadowcolour
-                        munched.s$size <- munched.s$shadowsize
+                        munched.s$linewidth <- munched.s$shadowlinewidth %||% munched.s$shadowsize
                         munched.s$alpha <- munched.s$shadowalpha
 
                         munched$shadow <- F
@@ -183,7 +191,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                         munched <- rbind( munched.s, munched)
                         munched$id <- 2*match(munched$group, unique(munched$group)) - munched$shadow
 
-                        munched <- munched[order(munched$group), c('colour', 'size', 'y', 'x', 'linetype','alpha', 'id', 'start', 'end')]
+                        munched <- munched[order(munched$group), c('colour', 'linewidth', 'y', 'x', 'linetype','alpha', 'id', 'start', 'end')]
 
                         aph <- alpha( munched$colour[munched$start], munched$alpha[munched$start] )
 
@@ -198,7 +206,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                           gp = gpar(
                             col = alpha(munched$colour, munched$alpha)[!munched$end],
                             fill = alpha(munched$colour, munched$alpha)[!munched$end],
-                            lwd = munched$size[!munched$end] * .pt,
+                            lwd = munched$linewidth[!munched$end] * .pt,
                             lty = munched$linetype[!munched$end],
                             lineend = lineend,
                             linejoin = linejoin,
@@ -213,7 +221,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                         munched.s <- munched
                         munched.s$shadow <- T
                         munched.s$colour <- munched.s$shadowcolour
-                        munched.s$size <- munched.s$shadowsize
+                        munched.s$linewidth <- munched.s$shadowlinewidth %||% munched.s$shadowsize
                         munched.s$alpha <- munched.s$shadowalpha
 
                         munched$shadow <- F
@@ -221,7 +229,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                         munched <- rbind( munched.s, munched)
                         munched$id <- 2*match(munched$group, unique(munched$group)) - munched$shadow
 
-                        munched <- munched[order(munched$group), c('colour', 'size', 'y', 'x', 'linetype','alpha', 'id', 'start')]
+                        munched <- munched[order(munched$group), c('colour', 'linewidth', 'y', 'x', 'linetype','alpha', 'id', 'start')]
 
                         aph <- alpha( munched$colour[munched$start], munched$alpha[munched$start] )
 
@@ -231,7 +239,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                           gp = gpar(
                             col = aph,
                             fill = aph,
-                            lwd = munched$size[munched$start] * .pt,
+                            lwd = munched$linewidth[munched$start] * .pt,
                             lty = munched$linetype[munched$start],
                             lineend = lineend,
                             linejoin = linejoin,
@@ -242,7 +250,10 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                       }
                     },
 
-                    draw_key = ggplot2::draw_key_path
+                    draw_key = ggplot2::draw_key_path,
+
+                    non_missing_aes = "size",
+                    rename_size = TRUE
 )
 
 
@@ -325,11 +336,3 @@ GeomShadowStep <- ggproto("GeomShadowStep", GeomShadowPath,
                       GeomShadowPath$draw_panel(data, panel_params, coord)
                     }
 )
-
-keep_mid_true <- getFromNamespace("keep_mid_true", "ggplot2")
-dapply <- getFromNamespace("dapply", "ggplot2")
-stairstep <- getFromNamespace("stairstep", "ggplot2")
-new_data_frame <- getFromNamespace("new_data_frame", "vctrs")
-# draw_key_path <- getFromNamespace("draw_key_path", "ggplot2")
-
-
