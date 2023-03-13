@@ -1,25 +1,31 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # ggshadow
 
 <!-- badges: start -->
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/ggshadow)](https://CRAN.R-project.org/package=ggshadow)
-[![License: GPL
-v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![CRAN status](https://www.r-pkg.org/badges/version/ggshadow)](https://CRAN.R-project.org/package=ggshadow)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
-The goal of ggshadow is to provide shadow and glow geoms for points and
-lines plots created with ‘ggplot2’.
+The goal of ggshadow is to provide shadow and glow geoms for points and lines plots created with 'ggplot2'.
 
 ## :arrow_double_down: Installation
 
-You can install the development version of ggshadow from
-[GitHub](https://github.com/) with:
+You can install the development version of ggshadow from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -28,7 +34,7 @@ pak::pkg_install("marcmenem/ggshadow")
 
 ## :book: Vignette
 
-``` r
+```{r vignette}
 ## after installing the package
 # vignette("ggshadow", package = "ggshadow")
 ```
@@ -37,7 +43,7 @@ pak::pkg_install("marcmenem/ggshadow")
 
 ### With ggshadow
 
-``` r
+```{r example}
 library(ggplot2)
 library(ggshadow)
 
@@ -45,20 +51,16 @@ ggplot(economics_long, aes(date, value01, colour = variable)) +
   geom_shadowline()
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
-
 ### Without ggshadow
 
-``` r
+```{r lineex}
 ggplot(economics_long, aes(date, value01, colour = variable)) +
   geom_line()
 ```
 
-<img src="man/figures/README-lineex-1.png" width="100%" />
-
 ### `ggshadow` supports varying the line color
 
-``` r
+```{r colorvarex}
 ggplot(
   economics_long,
   aes(date, value01,
@@ -73,11 +75,9 @@ ggplot(
   )
 ```
 
-<img src="man/figures/README-colorvarex-1.png" width="100%" />
-
 ### `ggshadow` also provides a Neon glow style
 
-``` r
+```{r example-glow}
 ggplot(economics_long, aes(date, value01, color = variable)) +
   geom_glowline() +
   guides(color = "none") +
@@ -87,11 +87,9 @@ ggplot(economics_long, aes(date, value01, color = variable)) +
   )
 ```
 
-<img src="man/figures/README-example-glow-1.png" width="100%" />
-
 ### Neon glow points
 
-``` r
+```{r example-glowpoint}
 ggplot(mtcars, aes(wt, mpg)) +
   geom_glowpoint(color = "yellow") +
   guides(color = "none") +
@@ -101,11 +99,10 @@ ggplot(mtcars, aes(wt, mpg)) +
   )
 ```
 
-<img src="man/figures/README-example-glowpoint-1.png" width="100%" />
 
 ### Adding a fill below the neon glow line
 
-``` r
+```{r example-glowlinefill}
 ggplot(
   economics_long[economics_long$variable %in% c("pop", "unemploy"), ],
   aes(date, value01 - 0.5, color = variable, fill = variable)
@@ -118,4 +115,3 @@ ggplot(
   )
 ```
 
-<img src="man/figures/README-example-glowlinefill-1.png" width="100%" />
