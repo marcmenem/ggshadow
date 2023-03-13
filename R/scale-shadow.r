@@ -1,16 +1,3 @@
-
-ScaleDiscreteIdentity <- getFromNamespace("ScaleDiscreteIdentity", "ggplot2")
-
-binned_scale <- getFromNamespace("binned_scale", "ggplot2")
-discrete_scale <- getFromNamespace("discrete_scale", "ggplot2")
-datetime_scale <- getFromNamespace("datetime_scale", "ggplot2")
-manual_scale <- getFromNamespace("manual_scale", "ggplot2")
-mid_rescaler <- getFromNamespace("mid_rescaler", "ggplot2")
-continuous_scale <- getFromNamespace("continuous_scale", "ggplot2")
-waiver <- getFromNamespace("waiver", "ggplot2")
-muted <- getFromNamespace("muted", "scales")
-binned_pal <- getFromNamespace("binned_pal", "ggplot2")
-
 #' @rdname scale_colour_hue
 #'
 #' @examples
@@ -19,6 +6,8 @@ binned_pal <- getFromNamespace("binned_pal", "ggplot2")
 #' p + geom_shadowpoint() + scale_shadowcolour_hue()
 #'
 #' @export
+#' @importFrom ggplot2 discrete_scale
+#' @importFrom scales hue_pal
 scale_shadowcolour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                                         direction = 1, na.value = "grey50", aesthetics = "shadowcolour") {
   discrete_scale(aesthetics, "hue", scales::hue_pal(h, c, l, h.start, direction),
@@ -43,6 +32,8 @@ scale_shadowcolour_discrete <- scale_shadowcolour_hue
 #' p + geom_shadowpoint() + scale_shadowcolour_brewer()
 #'
 #' @export
+#' @importFrom ggplot2 discrete_scale
+#' @importFrom scales brewer_pal
 scale_shadowcolour_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "shadowcolour") {
   discrete_scale(aesthetics, "brewer", scales::brewer_pal(type, palette, direction), ...)
 }
@@ -55,11 +46,16 @@ scale_shadowcolour_brewer <- function(..., type = "seq", palette = 1, direction 
 #' p + geom_shadowpoint() + scale_shadowcolour_distiller() + guides(shadowcolor='none')
 #'
 #' @export
+#' @importFrom ggplot2 continuous_scale
+#' @importFrom scales gradient_n_pal brewer_pal
 scale_shadowcolour_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "shadowcolour") {
   # warn about using a qualitative brewer palette to generate the gradient
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
-    warn("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
+    cli::cli_warn(
+      c("!" = "Using a discrete colour palette in a continuous scale.",
+        "i" = 'Consider using {.code type = "seq"} or {.code type = "div"} instead.')
+      )
   }
   continuous_scale(aesthetics, "distiller",
                    scales::gradient_n_pal(scales::brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
@@ -69,6 +65,8 @@ scale_shadowcolour_distiller <- function(..., type = "seq", palette = 1, directi
 
 #' @rdname scale_brewer
 #' @export
+#' @importFrom ggplot2 binned_scale
+#' @importFrom scales brewer_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -80,13 +78,18 @@ scale_shadowcolour_fermenter <- function(..., type = "seq", palette = 1, directi
   # warn about using a qualitative brewer palette to generate the gradient
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
-    warn("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
+    cli::cli_warn(
+      c("!" = "Using a discrete colour palette in a binned scale.",
+        "i" = 'Consider using {.code type = "seq"} or {.code type = "div"} instead.')
+    )
   }
   binned_scale(aesthetics, "fermenter", binned_pal(scales::brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
 
 #' @rdname scale_identity
 #' @export
+#' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
+#' @importFrom scales identity_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -103,6 +106,7 @@ scale_shadowcolour_identity <- function(..., guide = "none", aesthetics = "shado
 
 #' @rdname scale_continuous
 #' @export
+#' @importFrom cli cli_abort
 #'
 #' @examples
 #' library( ggplot2 )
@@ -119,12 +123,13 @@ scale_shadowcolour_continuous <- function(...,
   } else if (identical(type, "viridis")) {
     scale_shadowcolour_viridis_c(...)
   } else {
-    abort("Unknown scale type")
+    cli::cli_abort("Unknown {.arg type}: {.val {type}}")
   }
 }
 
 #' @rdname scale_continuous
 #' @export
+#' @importFrom cli cli_abort
 #'
 #' @examples
 #' library( ggplot2 )
@@ -140,12 +145,14 @@ scale_shadowcolour_binned <- function(...,
   } else if (identical(type, "viridis")) {
     scale_shadowcolour_viridis_b(...)
   } else {
-    abort("Unknown scale type")
+    cli::cli_abort("Unknown {.arg type}: {.val {type}}")
   }
 }
 
 #' @rdname scale_colour_steps
 #' @export
+#' @importFrom ggplot2 binned_scale
+#' @importFrom scales seq_gradient_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -160,6 +167,8 @@ scale_shadowcolour_steps <- function(..., low = "#132B43", high = "#56B1F7", spa
 
 #' @rdname scale_colour_steps
 #' @export
+#' @importFrom ggplot2 binned_scale
+#' @importFrom scales div_gradient_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -175,6 +184,8 @@ scale_shadowcolour_steps2 <- function(..., low = muted("red"), mid = "white", hi
 
 #' @rdname scale_colour_steps
 #' @export
+#' @importFrom ggplot2 binned_scale
+#' @importFrom scales gradient_n_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -191,6 +202,8 @@ scale_shadowcolour_stepsn <- function(..., colours, values = NULL, space = "Lab"
 
 #' @rdname scale_gradient
 #' @export
+#' @importFrom ggplot2 continuous_scale
+#' @importFrom scales seq_gradient_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -205,6 +218,8 @@ scale_shadowcolour_gradient <- function(..., low = "#132B43", high = "#56B1F7", 
 
 #' @rdname scale_gradient
 #' @export
+#' @importFrom ggplot2 continuous_scale
+#' @importFrom scales muted div_gradient_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -221,6 +236,8 @@ scale_shadowcolour_gradient2 <- function(..., low = muted("red"), mid = "white",
 
 #' @rdname scale_gradient
 #' @export
+#' @importFrom ggplot2 continuous_scale
+#' @importFrom scales gradient_n_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -238,6 +255,7 @@ scale_shadowcolour_gradientn <- function(..., colours, values = NULL, space = "L
 
 #' @rdname scale_gradient
 #' @export
+#' @importFrom scales seq_gradient_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -262,6 +280,7 @@ scale_shadowcolour_datetime <- function(...,
 
 #' @rdname scale_gradient
 #' @export
+#' @importFrom scales seq_gradient_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -286,6 +305,8 @@ scale_shadowcolour_date <- function(...,
 
 #' @rdname scale_grey
 #' @export
+#' @importFrom ggplot2 discrete_scale
+#' @importFrom scales grey_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -300,6 +321,8 @@ scale_shadowcolour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red
 
 #' @rdname scale_viridis
 #' @export
+#' @importFrom ggplot2 discrete_scale
+#' @importFrom scales viridis_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -319,6 +342,7 @@ scale_shadowcolour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
 
 #' @rdname scale_viridis
 #' @export
+#' @importFrom scales gradient_n_pal viridis_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -345,6 +369,8 @@ scale_shadowcolour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
 
 #' @rdname scale_viridis
 #' @export
+#' @importFrom ggplot2 binned_scale
+#' @importFrom scales gradient_n_pal viridis_pal
 #'
 #' @examples
 #' library( ggplot2 )
@@ -381,6 +407,7 @@ scale_shadowcolour_ordinal <- scale_shadowcolour_viridis_d
 
 #' @rdname scale_manual
 #' @export
+#' @importFrom ggplot2 waiver
 #'
 #' @examples
 #' library( ggplot2 )
