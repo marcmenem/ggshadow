@@ -9,7 +9,7 @@ Description: A collection of Geoms for R's 'ggplot2' library.
     plots more aesthetically pleasing. geom_glowpath(), geom_glowline(),
     geom_glowstep() and geom_glowpoint() add a neon glow around lines to
     get a steampunk style.
-License: GPL-2
+License: GPL-2 + file LICENSE
 URL: https://github.com/marcmenem/ggshadow/
 BugReports: https://github.com/marcmenem/ggshadow/issues
 Depends: 

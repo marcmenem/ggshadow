@@ -74,7 +74,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to [layer()]. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-`colour = "red"` or `size = 3`. They may also be parameters
+`colour = "red"` or `linewidth = 3`. They may also be parameters
 to the paired geom/stat.}
 
 \item{lineend}{Line end style (round, butt, square).}
@@ -150,7 +150,7 @@ from bottom to top.
 
 Adds 3 new aesthetics to [geom_path()]:
 * \code{shadowcolour} defaults to white, controls the color of the shadow.
-* \code{shadowsize} defaults to \code{2.5 * size}, controls the size of the shadow.
+* \code{shadowlinewidth} defaults to \code{2.5 * linewidth}, controls the linewidth of the shadow.
 * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
 }
 

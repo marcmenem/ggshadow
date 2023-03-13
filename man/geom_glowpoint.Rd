@@ -42,13 +42,12 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{Other arguments passed on to [layer()]. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-`colour = "red"` or `size = 3`. They may also be parameters
-to the paired geom/stat.}
+\item{...}{Other arguments passed on to [layer()]. These are often
+aesthetics, used to set an aesthetic to a fixed value, like `colour =
+"red"` or `size = 3`. They may also be parameters to the paired geom/stat.}
 
-\item{na.rm}{If `FALSE`, the default, missing values are removed with
-a warning. If `TRUE`, missing values are silently removed.}
+\item{na.rm}{If `FALSE`, the default, missing values are removed with a
+warning. If `TRUE`, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 `NA`, the default, includes if any aesthetics are mapped.
@@ -65,17 +64,19 @@ the default plot specification, e.g. [borders()].}
 a layer to add to a plot.
 }
 \description{
-The point geom is used to create scatterplots. [geom_glowpoint()] is
-designed as a drop in replacement for [geom_point()] with an added glow beneath
-the point to make a busy plot more aesthetically appealing or to make points
+The point geom is used to create scatterplots. [geom_glowpoint()] is designed
+as a drop in replacement for [geom_point()] with an added glow beneath the
+point to make a busy plot more aesthetically appealing or to make points
 stand out from the rest of the plot.
 }
 \section{Aesthetics}{
 
 Adds 3 new aesthetics to [geom_point()]:
-* \code{shadowcolour} defaults to the same color as the point, controls the color of the glow
+* \code{shadowcolour} defaults to the same color as the point, controls the
+color of the glow
 * \code{shadowsize} defaults to \code{size}, controls the sie of the shadow.
-* \code{shadowalpha} defaults to \code{0.06 * alpha} or \code{0.06}, controls the alpha of the glow
+* \code{shadowalpha} defaults to \code{0.06 * alpha} or \code{0.06}, controls
+the alpha of the glow
 }
 
 \examples{

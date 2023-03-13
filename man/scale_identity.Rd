@@ -27,14 +27,15 @@ These scales will not produce a legend unless you also supply the `breaks`,
 `labels`, and type of `guide` you want.
 }
 \details{
-The functions `scale_colour_identity()`, `scale_fill_identity()`, `scale_size_identity()`,
-etc. work on the aesthetics specified in the scale name: `colour`, `fill`, `size`,
-etc. However, the functions `scale_colour_identity()` and `scale_fill_identity()` also
-have an optional `aesthetics` argument that can be used to define both `colour` and
-`fill` aesthetic mappings via a single function call. The functions
-`scale_discrete_identity()` and `scale_continuous_identity()` are generic scales that
-can work with any aesthetic or set of aesthetics provided via the `aesthetics`
-argument.
+The functions `ggplot2::scale_colour_identity()`,
+`ggplot2::scale_fill_identity()`, `ggplot2::scale_size_identity()`, etc. work
+on the aesthetics specified in the scale name: `colour`, `fill`, `size`, etc.
+However, the functions `scale_colour_identity()` and `scale_fill_identity()`
+also have an optional `aesthetics` argument that can be used to define both
+`colour` and `fill` aesthetic mappings via a single function call. The
+functions `scale_discrete_identity()` and `scale_continuous_identity()` are
+generic scales that can work with any aesthetic or set of aesthetics provided
+via the `aesthetics` argument.
 }
 \examples{
 library( ggplot2 )
