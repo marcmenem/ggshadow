@@ -38,15 +38,15 @@ scale_shadowcolour_fermenter(
 )
 }
 \arguments{
-\item{...}{Other arguments passed on to [discrete_scale()], [continuous_scale()],
-or [binned_scale()], for `brewer`, `distiller`, and `fermenter` variants
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}}, \code{\link[=continuous_scale]{continuous_scale()}},
+or \code{\link[=binned_scale]{binned_scale()}}, for \code{brewer}, \code{distiller}, and \code{fermenter} variants
 respectively, to control name, limits, breaks, labels and so forth.}
 
 \item{type}{One of "seq" (sequential), "div" (diverging) or "qual"
 (qualitative)}
 
 \item{palette}{If a string, will use that named palette. If a number, will index into
-the list of palettes of appropriate `type`. The list of available palettes can found
+the list of palettes of appropriate \code{type}. The list of available palettes can found
 in the Palettes section.}
 
 \item{direction}{Sets the order of colours in the scale. If 1, the default,
@@ -75,31 +75,31 @@ colour bar, or \code{"legend"} for discrete colour legend.}
 a scale object to add to a plot.
 }
 \description{
-The `brewer` scales provides sequential, diverging and qualitative
+The \code{brewer} scales provides sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
 display discrete values on a map. See \url{https://colorbrewer2.org} for
 more information.
 }
 \details{
-The `brewer` scales were carefully designed and tested on discrete data.
+The \code{brewer} scales were carefully designed and tested on discrete data.
 They were not designed to be extended to continuous data, but results often
 look good. Your mileage may vary.
 }
 \note{
-The `distiller` scales extend brewer to continuous scales by smoothly
-interpolating 7 colours from any palette to a continuous scale. The `fermenter`
+The \code{distiller} scales extend brewer to continuous scales by smoothly
+interpolating 7 colours from any palette to a continuous scale. The \code{fermenter}
 scales provide binned versions of the brewer scales.
 }
 \section{Palettes}{
 
 The following palettes are available for use with these scales:
 \describe{
-  \item{Diverging}{BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral}
-  \item{Qualitative}{Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3}
-  \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
-     OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
+\item{Diverging}{BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral}
+\item{Qualitative}{Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3}
+\item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
+OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 }
-Modify the palette through the `palette` argument.
+Modify the palette through the \code{palette} argument.
 }
 
 \examples{

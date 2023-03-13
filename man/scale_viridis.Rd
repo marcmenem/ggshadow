@@ -57,9 +57,9 @@ scale_shadowcolour_ordinal(
 )
 }
 \arguments{
-\item{...}{Other arguments passed on to [discrete_scale()],
-[continuous_scale()], or [binned_scale] to control name, limits, breaks,
-  labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}},
+\code{\link[=continuous_scale]{continuous_scale()}}, or \link{binned_scale} to control name, limits, breaks,
+labels and so forth.}
 
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
 \code{\link[grDevices]{hsv}}.}
@@ -86,8 +86,8 @@ Eight options are available:
 
 \item{aesthetics}{Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
-example, to apply colour settings to the `colour` and `fill` aesthetics at the
-same time, via `aesthetics = c("colour", "fill")`.}
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
@@ -106,10 +106,10 @@ other values are deprecated.}
 a scale object to add to a plot.
 }
 \description{
-The `viridis` scales provide colour maps that are perceptually uniform in both
+The \code{viridis} scales provide colour maps that are perceptually uniform in both
 colour and black-and-white. They are also designed to be perceived by viewers
 with common forms of colour blindness. See also
-<https://bids.github.io/colormap/>.
+\url{https://bids.github.io/colormap/}.
 }
 \examples{
 library( ggplot2 )

@@ -31,7 +31,7 @@
 #' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #'
 #' @seealso
-#'  [ggplot::geom_path()], [ggplot::geom_line()], [ggplot::geom_step()]: Filled paths (polygons);
+#'  [ggplot2::geom_path()], [ggplot2::geom_line()], [ggplot2::geom_step()]: Filled paths (polygons);
 #'
 #' @section Missing value handling:
 #' `geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep()` handle `NA` as follows:
@@ -45,9 +45,9 @@
 #'
 #' @section Aesthetics:
 #' Adds 3 new aesthetics to [geom_path()]:
-#' * \code{shadowcolour} defaults to white, controls the color of the shadow.
-#' * \code{shadowlinewidth} defaults to \code{2.5 * linewidth}, controls the linewidth of the shadow.
-#' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+#' * `shadowcolour` defaults to white, controls the color of the shadow.
+#' * `shadowlinewidth` defaults to `2.5 * linewidth`, controls the linewidth of the shadow.
+#' * `shadowalpha` defaults to `0.25 * alpha` or `0.9`, controls the alpha of the shadow.
 #'
 #' @return a layer to add to a plot.
 #'

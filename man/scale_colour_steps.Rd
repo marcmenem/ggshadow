@@ -157,15 +157,15 @@ to map an arbitrary range to between 0 and 1.}
 a scale object to add to a plot.
 }
 \description{
-`scale_*_steps` creates a two colour binned gradient (low-high),
-`scale_*_steps2` creates a diverging binned colour gradient (low-mid-high),
-and `scale_*_stepsn` creates a n-colour binned gradient. These scales are
-binned variants of the [gradient scale][scale_colour_gradient] family and
+\verb{scale_*_steps} creates a two colour binned gradient (low-high),
+\verb{scale_*_steps2} creates a diverging binned colour gradient (low-mid-high),
+and \verb{scale_*_stepsn} creates a n-colour binned gradient. These scales are
+binned variants of the \link[=scale_colour_gradient]{gradient scale} family and
 works in the same way.
 }
 \details{
 Default colours are generated with \pkg{munsell} and
-`mnsl(c("2.5PB 2/4", "2.5PB 7/10"))`. Generally, for continuous
+\code{mnsl(c("2.5PB 2/4", "2.5PB 7/10"))}. Generally, for continuous
 colour scales you want to keep hue constant, but vary chroma and
 luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.
@@ -186,8 +186,8 @@ p + guides(shadowcolour='none')
 
 }
 \seealso{
-[scales::seq_gradient_pal()] for details on underlying
-  palette
+\code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
+palette
 
 Other colour scales: 
 \code{\link{scale_brewer}},

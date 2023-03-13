@@ -60,21 +60,23 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 
 \item{values}{a set of aesthetic values to map data values to. The values
 will be matched in order (usually alphabetical) with the limits of the
-scale, or with `breaks` if provided. If this is a named vector, then the
+scale, or with \code{breaks} if provided. If this is a named vector, then the
 values will be matched based on the names instead. Data values that don't
-match will be given `na.value`.}
+match will be given \code{na.value}.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
-example, to apply colour settings to the `colour` and `fill` aesthetics at the
-same time, via `aesthetics = c("colour", "fill")`.}
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{breaks}{One of:
-- `NULL` for no breaks
-- `waiver()` for the default breaks (the scale limits)
-- A character vector of breaks
-- A function that takes the limits as input and returns breaks
-  as output}
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
 }
 \value{
 a scale object to add to a plot.
@@ -84,28 +86,30 @@ These functions allow you to specify your own set of mappings from levels in the
 data to aesthetic values.
 }
 \details{
-The functions `scale_colour_manual()`, `scale_fill_manual()`, `scale_size_manual()`,
-etc. work on the aesthetics specified in the scale name: `colour`, `fill`, `size`,
-etc. However, the functions `scale_colour_manual()` and `scale_fill_manual()` also
-have an optional `aesthetics` argument that can be used to define both `colour` and
-`fill` aesthetic mappings via a single function call (see examples). The function
-`scale_discrete_manual()` is a generic scale that can work with any aesthetic or set
-of aesthetics provided via the `aesthetics` argument.
+The functions \code{scale_colour_manual()}, \code{scale_fill_manual()}, \code{scale_size_manual()},
+etc. work on the aesthetics specified in the scale name: \code{colour}, \code{fill}, \code{size},
+etc. However, the functions \code{scale_colour_manual()} and \code{scale_fill_manual()} also
+have an optional \code{aesthetics} argument that can be used to define both \code{colour} and
+\code{fill} aesthetic mappings via a single function call (see examples). The function
+\code{scale_discrete_manual()} is a generic scale that can work with any aesthetic or set
+of aesthetics provided via the \code{aesthetics} argument.
 }
 \section{Color Blindness}{
 
 Many color palettes derived from RGB combinations (like the "rainbow" color
 palette) are not suitable to support all viewers, especially those with
-color vision deficiencies. Using `viridis` type, which is perceptually
+color vision deficiencies. Using \code{viridis} type, which is perceptually
 uniform in both colour and black-and-white display is an easy option to
 ensure good perceptive properties of your visulizations.
 The colorspace package offers functionalities
-- to generate color palettes with good perceptive properties,
-- to analyse a given color palette, like emulating color blindness,
-- and to modify a given color palette for better perceptivity.
+\itemize{
+\item to generate color palettes with good perceptive properties,
+\item to analyse a given color palette, like emulating color blindness,
+\item and to modify a given color palette for better perceptivity.
+}
 
 For more information on color vision deficiencies and suitable color choices
-see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
+see the \href{https://arxiv.org/abs/1903.06490}{paper on the colorspace package}
 and references therein.
 }
 

@@ -15,10 +15,10 @@
 #'
 #' @section Aesthetics:
 #' Adds 3 new aesthetics to [geom_point()]:
-#' * \code{shadowcolour} defaults to the same color as the point, controls the
+#' * `shadowcolour` defaults to the same color as the point, controls the
 #' color of the glow
-#' * \code{shadowsize} defaults to \code{size}, controls the sie of the shadow.
-#' * \code{shadowalpha} defaults to \code{0.06 * alpha} or \code{0.06}, controls
+#' * `shadowsize` defaults to `size`, controls the sie of the shadow.
+#' * `shadowalpha` defaults to `0.06 * alpha` or `0.06`, controls
 #' the alpha of the glow
 #'
 #' @return a layer to add to a plot.

@@ -89,8 +89,8 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 a scale object to add to a plot.
 }
 \description{
-Based on [gray.colors()]. This is black and white equivalent
-of [scale_colour_gradient()].
+Based on \code{\link[=gray.colors]{gray.colors()}}. This is black and white equivalent
+of \code{\link[=scale_colour_gradient]{scale_colour_gradient()}}.
 }
 \examples{
 library( ggplot2 )

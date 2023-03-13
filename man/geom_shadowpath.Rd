@@ -46,25 +46,25 @@ geom_shadowstep(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by [aes()] or
-[aes_()]. If specified and `inherit.aes = TRUE` (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
-plot. You must supply `mapping` if there is no plot mapping.}
+plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If `NULL`, the default, the data is inherited from the plot
-   data as specified in the call to [ggplot()].
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A `data.frame`, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   [fortify()] for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A `function` will be called with a single argument,
-   the plot data. The return value must be a `data.frame`, and
-   will be used as the layer data. A `function` can be created
-   from a `formula` (e.g. `~ head(.x, 10)`).}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -72,9 +72,9 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{Other arguments passed on to [layer()]. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-`colour = "red"` or `linewidth = 3`. They may also be parameters
+\code{colour = "red"} or \code{linewidth = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{lineend}{Line end style (round, butt, square).}
@@ -83,26 +83,26 @@ to the paired geom/stat.}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
 
-\item{arrow}{Arrow specification, as created by [grid::arrow()].}
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
-\item{na.rm}{If `FALSE`, the default, missing values are removed with
-a warning. If `TRUE`, missing values are silently removed.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
-`NA`, the default, includes if any aesthetics are mapped.
-`FALSE` never includes, and `TRUE` always includes.
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
 
-\item{inherit.aes}{If `FALSE`, overrides the default aesthetics,
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. [borders()].}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{orientation}{The orientation of the layer. The default (`NA`)
+\item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting `orientation`
-to either `"x"` or `"y"`. See the *Orientation* section for more detail.}
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{direction}{direction of stairs: 'vh' for vertical then horizontal,
 'hv' for horizontal then vertical, or 'mid' for step half-way between
@@ -113,16 +113,16 @@ a layer to add to a plot.
 }
 \description{
 Plot a shadow beneath the connected lines to make it easier to read a chart with several
-overlapping observations. `geom_shadowpath()` connects the observations in the order in which they appear
-in the data. `geom_shadowline()` connects them in order of the variable on the
-x axis. `geom_shadowstep()` creates a stairstep plot, highlighting exactly
+overlapping observations. \code{geom_shadowpath()} connects the observations in the order in which they appear
+in the data. \code{geom_shadowline()} connects them in order of the variable on the
+x axis. \code{geom_shadowstep()} creates a stairstep plot, highlighting exactly
 when changes occur.
 }
 \details{
-The `group` aesthetic determines which cases are
+The \code{group} aesthetic determines which cases are
 connected together. These functions are designed as a straight replacement
-to the [geom_path()], [geom_line()] and [geom_step()] functions.
-To set the order of drawing, make the `colour` aesthetic a factor, and set the order
+to the \code{\link[=geom_path]{geom_path()}}, \code{\link[=geom_line]{geom_line()}} and \code{\link[=geom_step]{geom_step()}} functions.
+To set the order of drawing, make the \code{colour} aesthetic a factor, and set the order
 from bottom to top.
 }
 \section{Functions}{
@@ -136,22 +136,25 @@ from bottom to top.
 }}
 \section{Missing value handling}{
 
-`geom_shadowpath()`, `geom_shadowline()`, and `geom_shadowstep()` handle `NA` as follows:
-
-*  If an `NA` occurs in the middle of a line, it breaks the line. No warning
-   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
-*  If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
-   (default), the `NA` is removed with a warning.
-*  If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
-   the `NA` is removed silently, without warning.
+\code{geom_shadowpath()}, \code{geom_shadowline()}, and \code{geom_shadowstep()} handle \code{NA} as follows:
+\itemize{
+\item If an \code{NA} occurs in the middle of a line, it breaks the line. No warning
+is shown, regardless of whether \code{na.rm} is \code{TRUE} or \code{FALSE}.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{FALSE}
+(default), the \code{NA} is removed with a warning.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{TRUE},
+the \code{NA} is removed silently, without warning.
+}
 }
 
 \section{Aesthetics}{
 
-Adds 3 new aesthetics to [geom_path()]:
-* \code{shadowcolour} defaults to white, controls the color of the shadow.
-* \code{shadowlinewidth} defaults to \code{2.5 * linewidth}, controls the linewidth of the shadow.
-* \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+Adds 3 new aesthetics to \code{\link[=geom_path]{geom_path()}}:
+\itemize{
+\item \code{shadowcolour} defaults to white, controls the color of the shadow.
+\item \code{shadowlinewidth} defaults to \code{2.5 * linewidth}, controls the linewidth of the shadow.
+\item \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+}
 }
 
 \examples{
@@ -165,5 +168,5 @@ ggplot(economics_long, aes(date, value01, colour = value01,
 
 }
 \seealso{
-[ggplot::geom_path()], [ggplot::geom_line()], [ggplot::geom_step()]: Filled paths (polygons);
+\code{\link[ggplot2:geom_path]{ggplot2::geom_path()}}, \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}, \code{\link[ggplot2:geom_path]{ggplot2::geom_step()}}: Filled paths (polygons);
 }

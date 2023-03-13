@@ -41,3 +41,4 @@ Collate:
     'ggshadow-package.R'
     'internal-doc.r'
     'scale-shadow.r'
+Roxygen: list(markdown = TRUE)

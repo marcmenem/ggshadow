@@ -7,15 +7,15 @@
 scale_shadowcolour_identity(..., guide = "none", aesthetics = "shadowcolour")
 }
 \arguments{
-\item{...}{Other arguments passed on to [discrete_scale()] or
-[continuous_scale()]}
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
+\code{\link[=continuous_scale]{continuous_scale()}}}
 
-\item{guide}{Guide to use for this scale. Defaults to `"none"`.}
+\item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
-example, to apply colour settings to the `colour` and `fill` aesthetics at the
-same time, via `aesthetics = c("colour", "fill")`.}
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \value{
 a scale object to add to a plot.
@@ -23,19 +23,19 @@ a scale object to add to a plot.
 \description{
 Use this set of scales when your data has already been scaled, i.e. it
 already represents aesthetic values that ggplot2 can handle directly.
-These scales will not produce a legend unless you also supply the `breaks`,
-`labels`, and type of `guide` you want.
+These scales will not produce a legend unless you also supply the \code{breaks},
+\code{labels}, and type of \code{guide} you want.
 }
 \details{
-The functions `ggplot2::scale_colour_identity()`,
-`ggplot2::scale_fill_identity()`, `ggplot2::scale_size_identity()`, etc. work
-on the aesthetics specified in the scale name: `colour`, `fill`, `size`, etc.
-However, the functions `scale_colour_identity()` and `scale_fill_identity()`
-also have an optional `aesthetics` argument that can be used to define both
-`colour` and `fill` aesthetic mappings via a single function call. The
-functions `scale_discrete_identity()` and `scale_continuous_identity()` are
+The functions \code{ggplot2::scale_colour_identity()},
+\code{ggplot2::scale_fill_identity()}, \code{ggplot2::scale_size_identity()}, etc. work
+on the aesthetics specified in the scale name: \code{colour}, \code{fill}, \code{size}, etc.
+However, the functions \code{scale_colour_identity()} and \code{scale_fill_identity()}
+also have an optional \code{aesthetics} argument that can be used to define both
+\code{colour} and \code{fill} aesthetic mappings via a single function call. The
+functions \code{scale_discrete_identity()} and \code{scale_continuous_identity()} are
 generic scales that can work with any aesthetic or set of aesthetics provided
-via the `aesthetics` argument.
+via the \code{aesthetics} argument.
 }
 \examples{
 library( ggplot2 )

@@ -48,9 +48,9 @@
 #'
 #' @section Aesthetics:
 #' Adds 3 new aesthetics to [geom_path()]:
-#' * \code{shadowcolour} defaults to path color, controls the color of the shadow.
-#' * \code{shadowlinewidth} defaults to \code{linewidth}, controls the linewidth of the shadow.
-#' * \code{shadowalpha} defaults to \code{0.06 * alpha} or \code{0.06}, controls the alpha of the glow.
+#' * `shadowcolour` defaults to path color, controls the color of the shadow.
+#' * `shadowlinewidth` defaults to `linewidth`, controls the linewidth of the shadow.
+#' * `shadowalpha` defaults to `0.06 * alpha` or `0.06`, controls the alpha of the glow.
 #'
 #' @return a `ggplot2` layer to add to a plot.
 #'
