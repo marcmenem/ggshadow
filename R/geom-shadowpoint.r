@@ -1,24 +1,25 @@
 #' Points
 #'
 #' The point geom is used to create scatterplots. [geom_shadowpoint()] is
-#' designed as a drop in replacement for [geom_point()] with an added shadow beneath
-#' the point to make a busy plot more aesthetically appealing or to make points
-#' stand out from the rest of the plot.
+#' designed as a drop in replacement for [geom_point()] with an added shadow
+#' beneath the point to make a busy plot more aesthetically appealing or to make
+#' points stand out from the rest of the plot.
 #'
 #' @inheritParams ggshadow-params
-#' @param na.rm If `FALSE`, the default, missing values are removed with
-#'   a warning. If `TRUE`, missing values are silently removed.
-#' @param ... Other arguments passed on to [layer()]. These are
-#'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   `colour = "red"` or `size = 3`. They may also be parameters
-#'   to the paired geom/stat.
+#' @param na.rm If `FALSE`, the default, missing values are removed with a
+#'   warning. If `TRUE`, missing values are silently removed.
+#' @param ... Other arguments passed on to [layer()]. These are often
+#'   aesthetics, used to set an aesthetic to a fixed value, like `colour =
+#'   "red"` or `size = 3`. They may also be parameters to the paired geom/stat.
 #'
 #'
 #' @section Aesthetics:
 #' Adds 3 new aesthetics to [geom_point()]:
 #' * \code{shadowcolour} defaults to white, controls the color of the shadow.
-#' * \code{shadowsize} defaults to \code{1.8 * size}, controls the sie of the shadow.
-#' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls the alpha of the shadow.
+#' * \code{shadowsize} defaults to \code{1.8 * size}, controls the size of the
+#' shadow.
+#' * \code{shadowalpha} defaults to \code{0.25 * alpha} or \code{0.9}, controls
+#' the alpha of the shadow.
 #'
 #' @return a layer to add to a plot.
 #'
@@ -50,12 +51,12 @@ geom_shadowpoint <- function(mapping = NULL, data = NULL,
 }
 
 #' @rdname ggshadow-ggproto
-#' @importFrom glue glue
-#' @importFrom rlang warn
-#' @importFrom ggplot2 Geom
 #' @format NULL
 #' @usage NULL
 #' @export
+#' @importFrom cli cli_warn
+#' @importFrom stats complete.cases
+#' @importFrom grid pointsGrob gpar
 GeomShadowPoint <- ggproto("GeomShadowPoint", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape", "colour"),
@@ -75,7 +76,9 @@ GeomShadowPoint <- ggproto("GeomShadowPoint", Geom,
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
-      warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_shadowpoint)."))
+      cli::cli_warn(
+        "{.fn geom_shadowpoint}: Removed {sum(!kept)} row{?s} containing missing values."
+      )
     }
 
     data$shadowcolour[is.na(data$shadowcolour)] <- 'white'
@@ -110,7 +113,7 @@ GeomShadowPoint <- ggproto("GeomShadowPoint", Geom,
     grid::pointsGrob(
       coords$x, coords$y,
       pch = coords$shape,
-      gp = gpar(
+      gp = grid::gpar(
         col = alpha(coords$colour, coords$alpha),
         fill = alpha(coords$fill, coords$alpha),
         # Stroke is added around the outside of the point
@@ -119,12 +122,5 @@ GeomShadowPoint <- ggproto("GeomShadowPoint", Geom,
       )
     )
 
-  }#,
-
-  # draw_key = draw_key_point
+  }
 )
-
-# translate_shape_string <- getFromNamespace("translate_shape_string", "ggplot2")
-# draw_key_point <- getFromNamespace("draw_key_point", "ggplot2")
-
-
