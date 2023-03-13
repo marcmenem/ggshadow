@@ -2,8 +2,6 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom rlang abort
-#' @importFrom rlang warn
 #' @importFrom rlang `%||%`
 #' @importFrom ggplot2 Geom
 #' @importFrom ggplot2 layer
