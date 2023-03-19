@@ -21,33 +21,37 @@ scale_shadowcolour_binned(
 \item{...}{Additional parameters passed on to the scale type}
 
 \item{type}{One of the following:
-* "gradient" (the default)
-* "viridis"
-* A function that returns a continuous colour scale.}
+\itemize{
+\item "gradient" (the default)
+\item "viridis"
+\item A function that returns a continuous colour scale.
+}}
 }
 \value{
 a scale object to add to a plot.
 }
 \description{
 Colour scales for continuous data default to the values of the
-`ggplot2.continuous.colour` and `ggplot2.continuous.fill` options. These
-[options()] default to `"gradient"` (i.e., [scale_colour_gradient()] and
-[scale_fill_gradient()])
+\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options. These
+\code{\link[=options]{options()}} default to \code{"gradient"} (i.e., \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} and
+\code{\link[=scale_fill_gradient]{scale_fill_gradient()}})
 }
 \section{Color Blindness}{
 
 Many color palettes derived from RGB combinations (like the "rainbow" color
 palette) are not suitable to support all viewers, especially those with
-color vision deficiencies. Using `viridis` type, which is perceptually
+color vision deficiencies. Using \code{viridis} type, which is perceptually
 uniform in both colour and black-and-white display is an easy option to
 ensure good perceptive properties of your visulizations.
 The colorspace package offers functionalities
-- to generate color palettes with good perceptive properties,
-- to analyse a given color palette, like emulating color blindness,
-- and to modify a given color palette for better perceptivity.
+\itemize{
+\item to generate color palettes with good perceptive properties,
+\item to analyse a given color palette, like emulating color blindness,
+\item and to modify a given color palette for better perceptivity.
+}
 
 For more information on color vision deficiencies and suitable color choices
-see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
+see the \href{https://arxiv.org/abs/1903.06490}{paper on the colorspace package}
 and references therein.
 }
 
@@ -63,7 +67,7 @@ p + geom_shadowpoint() + scale_shadowcolour_binned() + guides(shadowcolour='none
 
 }
 \seealso{
-[scale_colour_gradient()], [scale_colour_viridis_c()],
-  [scale_colour_steps()], [scale_colour_viridis_b()], [scale_fill_gradient()],
-  [scale_fill_viridis_c()], [scale_fill_steps()], and [scale_fill_viridis_b()]
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_viridis_c]{scale_colour_viridis_c()}},
+\code{\link[=scale_colour_steps]{scale_colour_steps()}}, \code{\link[=scale_colour_viridis_b]{scale_colour_viridis_b()}}, \code{\link[=scale_fill_gradient]{scale_fill_gradient()}},
+\code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}, \code{\link[=scale_fill_steps]{scale_fill_steps()}}, and \code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}}
 }

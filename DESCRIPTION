@@ -1,30 +1,44 @@
 Package: ggshadow
 Title: Shadow and Glow Geoms for 'ggplot2'
 Version: 0.0.4
-Authors@R: person("Marc", "Menem", email = "marc.menem@m4x.org", role = c("aut", "cre"))
-Description: A collection of Geoms for R's 'ggplot2' library. geom_shadowpath(), geom_shadowline(), 
-    geom_shadowstep() and geom_shadowpoint() functions draw a shadow below lines to make busy plots more 
-    aesthetically pleasing. geom_glowpath(), geom_glowline(), geom_glowstep() and geom_glowpoint() add a 
-    neon glow around lines to get a steampunk style.
-Depends: R (>= 3.4.0)
-Imports:
-    ggplot2 (>= 3.3.0),
-    grid,
-    scales,
-    rlang, 
-    glue
-Suggests:
-    rmarkdown, knitr
-VignetteBuilder: knitr
-License: GPL-2
-Encoding: UTF-8
+Authors@R: 
+    person("Marc", "Menem", , "marc.menem@m4x.org", role = c("aut", "cre"))
+Description: A collection of Geoms for R's 'ggplot2' library.
+    geom_shadowpath(), geom_shadowline(), geom_shadowstep() and
+    geom_shadowpoint() functions draw a shadow below lines to make busy
+    plots more aesthetically pleasing. geom_glowpath(), geom_glowline(),
+    geom_glowstep() and geom_glowpoint() add a neon glow around lines to
+    get a steampunk style.
+License: GPL-2 + file LICENSE
 URL: https://github.com/marcmenem/ggshadow/
 BugReports: https://github.com/marcmenem/ggshadow/issues
-RoxygenNote: 7.2.1
+Depends: 
+    R (>= 3.4.0)
+Imports:
+    cli,
+    ggplot2 (>= 3.4.1),
+    grid,
+    lifecycle,
+    rlang,
+    scales,
+    stats,
+    vctrs
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+RoxygenNote: 7.2.3
 Collate: 
     'geom-glowpath.r'
     'geom-glowpoint.r'
     'geom-shadowpath.r'
     'geom-shadowpoint.r'
+    'ggplot2-utils.R'
+    'ggshadow-package.R'
     'internal-doc.r'
     'scale-shadow.r'
+Roxygen: list(markdown = TRUE)

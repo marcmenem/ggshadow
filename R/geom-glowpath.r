@@ -23,7 +23,7 @@
 #'   a warning. If `TRUE`, missing values are silently removed.
 #' @param ... Other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   `colour = "red"` or `size = 3`. They may also be parameters
+#'   `colour = "red"` or `linewidth = 3`. They may also be parameters
 #'   to the paired geom/stat.
 #' @param orientation The orientation of the layer. The default (`NA`)
 #' automatically determines the orientation from the aesthetic mapping. In the
@@ -32,10 +32,12 @@
 #'
 #'
 #' @seealso
-#'  [ggplot::geom_path()], [ggplot::geom_line()], [ggplot::geom_step()]: Filled paths (polygons);
+#'  [ggplot2::geom_path()], [ggplot2::geom_line()], [ggplot2::geom_step()]:
+#'  Filled paths (polygons);
 #'
 #' @section Missing value handling:
-#' `geom_glowpath()`, `geom_glowline()`, and `geom_glowstep()` handle `NA` as follows:
+#' `geom_glowpath()`, `geom_glowline()`, and `geom_glowstep()` handle `NA` as
+#' follows:
 #'
 #' *  If an `NA` occurs in the middle of a line, it breaks the line. No warning
 #'    is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
@@ -46,9 +48,9 @@
 #'
 #' @section Aesthetics:
 #' Adds 3 new aesthetics to [geom_path()]:
-#' * \code{shadowcolour} defaults to path color, controls the color of the shadow.
-#' * \code{shadowsize} defaults to \code{size}, controls the size of the shadow.
-#' * \code{shadowalpha} defaults to \code{0.06 * alpha} or \code{0.06}, controls the alpha of the glow.
+#' * `shadowcolour` defaults to path color, controls the color of the shadow.
+#' * `shadowlinewidth` defaults to `linewidth`, controls the linewidth of the shadow.
+#' * `shadowalpha` defaults to `0.06 * alpha` or `0.06`, controls the alpha of the glow.
 #'
 #' @return a `ggplot2` layer to add to a plot.
 #'
@@ -90,22 +92,20 @@ geom_glowpath <- function(mapping = NULL, data = NULL,
 }
 
 #' @rdname ggshadow-ggproto
-#' @importFrom glue glue
-#' @importFrom rlang warn
-#' @importFrom rlang abort
-#' @importFrom grid gpar
-#' @importFrom ggplot2 layer
-#' @importFrom ggplot2 ggproto
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 Geom
 #' @format NULL
 #' @usage NULL
 #' @export
+#' @importFrom cli cli_warn cli_inform
+#' @importFrom grid gList gpar segmentsGrob polylineGrob polygonGrob
+#' @importFrom stats complete.cases ave
+#' @importFrom scales alpha
+#' @importFrom ggplot2 draw_key_path
+#' @importFrom vctrs new_data_frame
 GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                     required_aes = c("x", "y"),
 
-                    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA,
-                                      shadowcolour=NA, shadowsize=NA, shadowalpha = NA,
+                    default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA,
+                                      shadowcolour=NA, shadowlinewidth=NA, shadowalpha = NA,
                                       fill=NA),
 
                     setup_data = function(data, params) {
@@ -125,16 +125,19 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                       # print( data %>% as.tbl )
                       # cat('Handle NA\n')
 
-                      complete <- stats::complete.cases(data[c("x", "y", "size", "colour", "linetype")])
+                      complete <- stats::complete.cases(data[c("x", "y", "linewidth", "colour", "linetype")])
                       kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
                       data <- data[kept, ]
 
                       if (!all(kept) && !params$na.rm) {
-                        warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_glowpath)."))
+                        cli::cli_warn(
+                          "{.fn geom_glowpath}: Removed {sum(!kept)} row{?s} containing missing values."
+                        )
                       }
 
                       data$shadowcolour[is.na(data$shadowcolour)] <- data$colour
-                      data$shadowsize[is.na(data$shadowsize)] <- data$size
+                      data$linewidth <- data$linewidth %||% data$size
+                      data$shadowlinewidth[is.na(data$shadowlinewidth)] <- data$linewidth
                       data$shadowalpha[is.na(data$shadowalpha)] <- data$alpha * 0.06
                       data$shadowalpha[is.na(data$shadowalpha)] <- 0.06
 
@@ -148,7 +151,13 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                                           lineend = "butt", linejoin = "round", linemitre = 10,
                                           na.rm = FALSE) {
                       if (!anyDuplicated(data$group)) {
-                        message("geom_glowpath: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
+                        cli::cli_inform(
+                          c(
+                            "!" = "{.fn geom_glowpath}: Each group consists of
+                            only one observation.",
+                            "*" = "Do you need to adjust the group aesthetic?"
+                          )
+                        )
                       }
 
                       # cat( crayon::yellow('draw_panel data (GlowPath)\n') )
@@ -164,20 +173,23 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                       # Silently drop lines with less than two points, preserving order
                       rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
                       munched <- munched[rows >= 2, ]
-                      if (nrow(munched) < 2) return(zeroGrob())
+                      if (nrow(munched) < 2) return(ggplot2::zeroGrob())
 
                       # Work out whether we should use lines or segments
                       attr <- dapply(munched, "group", function(df) {
                         linetype <- unique(df$linetype)
-                        new_data_frame(
+                        vctrs::new_data_frame(
                           solid = identical(linetype, 1) || identical(linetype, "solid"),
-                          constant = nrow(unique(df[, c("alpha", "colour","size", "linetype", 'shadowcolour', 'shadowsize', 'shadowalpha', 'fill')])) == 1
+                          constant = nrow(unique(df[, c("alpha", "colour","linewidth", "linetype", 'shadowcolour', 'shadowlinewidth', 'shadowalpha', 'fill')])) == 1
                         )
                       })
                       solid_lines <- all(attr$solid)
                       constant <- all(attr$constant)
                       if (!solid_lines && !constant) {
-                        abort("geom_glowpath: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line")
+                        cli::cli_abort(
+                          "{.fn geom_glowpath}: {.arg {c('colour', 'linewidth', 'linetype')}} must be constant over the
+                          line when {.arg linetype} is not 'solid'."
+                        )
                       }
 
                       # Work out grouping variables for grobs
@@ -187,8 +199,13 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                       end <-   c(group_diff, TRUE)
 
                       if (!constant) {
-
-                        print('Varying color, alpha, size, linetype or shadow is not implmeted for glow (defaulting to shadowline)\n')
+                        cli::cli_inform(
+                          c(
+                            "i" = "Varying color, alpha, linewidth, linetype or shadow values are
+                            not supported for {.fn GeomGlowPath}.",
+                            ">" = "Defaulting to {.fn GeomShadowLine}"
+                          )
+                        )
                         #print( munched %>% as.tbl, n=150 )
                         munched$start <- start
                         munched$end <- end
@@ -196,7 +213,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                         munched.s <- munched
                         munched.s$shadow <- T
                         munched.s$colour <- munched.s$shadowcolour
-                        munched.s$size <- munched.s$shadowsize
+                        munched.s$linewidth <- munched.s$shadowlinewidth %||% munched.s$shadowsize
                         munched.s$alpha <- munched.s$shadowalpha
 
                         munched$shadow <- F
@@ -204,9 +221,9 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                         munched <- rbind( munched.s, munched)
                         munched$id <- 2*match(munched$group, unique(munched$group)) - munched$shadow
 
-                        munched <- munched[order(munched$group), c('colour', 'size', 'y', 'x', 'linetype','alpha', 'id', 'start', 'end')]
+                        munched <- munched[order(munched$group), c('colour', 'linewidth', 'y', 'x', 'linetype','alpha', 'id', 'start', 'end')]
 
-                        aph <- alpha( munched$colour[munched$start], munched$alpha[munched$start] )
+                        aph <- scales::alpha( munched$colour[munched$start], munched$alpha[munched$start] )
 
                         # print( munched %>% as.tbl, n=50 )
 
@@ -216,10 +233,10 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                           munched$x[!munched$start],
                           munched$y[!munched$start],
                           default.units = "native", arrow = arrow,
-                          gp = gpar(
-                            col = alpha(munched$colour, munched$alpha)[!munched$end],
-                            fill = alpha(munched$colour, munched$alpha)[!munched$end],
-                            lwd = munched$size[!munched$end] * .pt,
+                          gp = grid::gpar(
+                            col = scales::alpha(munched$colour, munched$alpha)[!munched$end],
+                            fill = scales::alpha(munched$colour, munched$alpha)[!munched$end],
+                            lwd = munched$linewidth[!munched$end] * .pt,
                             lty = munched$linetype[!munched$end],
                             lineend = lineend,
                             linejoin = linejoin,
@@ -236,7 +253,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                           munched.s <- munched.i
                           munched.s$layernum <- i
                           munched.s$colour <- munched.s$shadowcolour
-                          munched.s$size <- munched.s$shadowsize * i
+                          munched.s$linewidth <- (munched.s$shadowlinewidth %||% munched.s$shadowsize) * i
                           munched.s$alpha <- munched.s$shadowalpha
 
                           munched <- rbind( munched.s, munched)
@@ -244,9 +261,9 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                         munched$id <- 11*match(munched$group, unique(munched$group)) - munched$layernum
 
                         # print( munched %>% as_tibble, n=150 )
-                        munched <- munched[order(munched$group), c('colour', 'size', 'y', 'x', 'linetype','alpha', 'id', 'start')]
+                        munched <- munched[order(munched$group), c('colour', 'linewidth', 'y', 'x', 'linetype','alpha', 'id', 'start')]
 
-                        aph <- alpha( munched$colour[munched$start], munched$alpha[munched$start] )
+                        aph <- scales::alpha( munched$colour[munched$start], munched$alpha[munched$start] )
 
                         g_lines <- grid::polylineGrob(
                           munched$x, munched$y, id = munched$id,
@@ -254,7 +271,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                           gp = gpar(
                             col = aph,
                             fill = aph,
-                            lwd = munched$size[munched$start] * .pt,
+                            lwd = munched$linewidth[munched$start] * .pt,
                             lty = munched$linetype[munched$start],
                             lineend = lineend,
                             linejoin = linejoin,
@@ -283,8 +300,8 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                               c(minx, munched.g$x, maxx),
                               c(miny, munched.g$y, miny),
                               default.units = "native",
-                              gp = gpar(
-                                fill = alpha(fillcolour, fillalpha),
+                              gp = grid::gpar(
+                                fill = scales::alpha(fillcolour, fillalpha),
                                 col = NA
                               )
                             )
@@ -303,7 +320,10 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                       }
                     },
 
-                    draw_key = ggplot2::draw_key_path
+                    draw_key = ggplot2::draw_key_path,
+
+                    non_missing_aes = "size",
+                    rename_size = TRUE
 )
 
 
@@ -393,12 +413,3 @@ GeomGlowStep <- ggproto("GeomGlowStep", GeomGlowPath,
                       GeomGlowPath$draw_panel(data, panel_params, coord)
                     }
 )
-
-keep_mid_true <- getFromNamespace("keep_mid_true", "ggplot2")
-dapply <- getFromNamespace("dapply", "ggplot2")
-stairstep <- getFromNamespace("stairstep", "ggplot2")
-new_data_frame <- getFromNamespace("new_data_frame", "vctrs")
-ggname <- getFromNamespace("ggname", "ggplot2")
-# draw_key_path <- getFromNamespace("draw_key_path", "ggplot2")
-
-

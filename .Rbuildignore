@@ -1,3 +1,6 @@
-^CRAN-SUBMISSION$
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
 ^buildnotes.md
-
+^cran-comments.md

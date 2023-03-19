@@ -64,6 +64,7 @@ Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
@@ -103,8 +104,11 @@ instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
 breaks are given explicitly.}
-    \item{\code{right}}{Should values on the border between bins be part of the right
-(upper) bin?}
+    \item{\code{right}}{Should the intervals be closed on the right (\code{TRUE}, default) or
+should the intervals be closed on the left (\code{FALSE})? 'Closed on the right'
+means that values at break positions are part of the lower bin (open on the
+left), whereas they are part of the upper bin when intervals are closed on
+the left (open on the right).}
     \item{\code{trans}}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
@@ -153,15 +157,15 @@ to map an arbitrary range to between 0 and 1.}
 a scale object to add to a plot.
 }
 \description{
-`scale_*_steps` creates a two colour binned gradient (low-high),
-`scale_*_steps2` creates a diverging binned colour gradient (low-mid-high),
-and `scale_*_stepsn` creates a n-colour binned gradient. These scales are
-binned variants of the [gradient scale][scale_colour_gradient] family and
+\verb{scale_*_steps} creates a two colour binned gradient (low-high),
+\verb{scale_*_steps2} creates a diverging binned colour gradient (low-mid-high),
+and \verb{scale_*_stepsn} creates a n-colour binned gradient. These scales are
+binned variants of the \link[=scale_colour_gradient]{gradient scale} family and
 works in the same way.
 }
 \details{
 Default colours are generated with \pkg{munsell} and
-`mnsl(c("2.5PB 2/4", "2.5PB 7/10"))`. Generally, for continuous
+\code{mnsl(c("2.5PB 2/4", "2.5PB 7/10"))}. Generally, for continuous
 colour scales you want to keep hue constant, but vary chroma and
 luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.
@@ -182,8 +186,8 @@ p + guides(shadowcolour='none')
 
 }
 \seealso{
-[scales::seq_gradient_pal()] for details on underlying
-  palette
+\code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
+palette
 
 Other colour scales: 
 \code{\link{scale_brewer}},

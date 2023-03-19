@@ -102,6 +102,7 @@ number of breaks given by the transformation.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
@@ -163,8 +164,8 @@ other values are deprecated.}
 
 \item{na.value}{Colour to use for missing values}
 
-\item{guide}{Type of legend. Use `"colourbar"` for continuous
-colour bar, or `"legend"` for discrete colour legend.}
+\item{guide}{Type of legend. Use \code{"colourbar"} for continuous
+colour bar, or \code{"legend"} for discrete colour legend.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
@@ -187,13 +188,13 @@ to map an arbitrary range to between 0 and 1.}
 a scale object to add to a plot.
 }
 \description{
-`scale_*_gradient` creates a two colour gradient (low-high),
-`scale_*_gradient2` creates a diverging colour gradient (low-mid-high),
-`scale_*_gradientn` creates a n-colour gradient.
+\verb{scale_*_gradient} creates a two colour gradient (low-high),
+\verb{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
+\verb{scale_*_gradientn} creates a n-colour gradient.
 }
 \details{
 Default colours are generated with \pkg{munsell} and
-`mnsl(c("2.5PB 2/4", "2.5PB 7/10"))`. Generally, for continuous
+\code{mnsl(c("2.5PB 2/4", "2.5PB 7/10"))}. Generally, for continuous
 colour scales you want to keep hue constant, but vary chroma and
 luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.
@@ -222,8 +223,8 @@ p + geom_shadowpath() + scale_shadowcolour_date() + guides(shadowcolour='none')
 
 }
 \seealso{
-[scales::seq_gradient_pal()] for details on underlying
-  palette
+\code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
+palette
 
 Other colour scales: 
 \code{\link{scale_brewer}},
