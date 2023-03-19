@@ -1,4 +1,6 @@
-# Some notes to reminf myself of the build and release process
+# Some notes to remind myself of the build and release process
+
+[devtools cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/package-development.pdf)
 
 Reload the package while building
 
