@@ -119,8 +119,8 @@ p + geom_shadowpoint() + scale_shadowcolour_brewer()
 }
 \seealso{
 Other colour scales: 
-\code{\link{scale_colour_hue}},
-\code{\link{scale_colour_steps}},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
 \code{\link{scale_gradient}},
 \code{\link{scale_grey}},
 \code{\link{scale_viridis}}
