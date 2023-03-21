@@ -6,7 +6,7 @@
 \alias{ggshadow-package}
 \title{ggshadow: Shadow and Glow Geoms for 'ggplot2'}
 \description{
-A collection of Geoms for R's 'ggplot2' library. geom_shadowpath(), geom_shadowline(), geom_shadowstep() and geom_shadowpoint() functions draw a shadow below lines to make busy plots more aesthetically pleasing. geom_glowpath(), geom_glowline(), geom_glowstep() and geom_glowpoint() add a neon glow around lines to get a steampunk style.
+A collection of Geoms for R's 'ggplot2' library. GeomShadowLine, GeomShadowPath, GeomShadowPoint, and GeomShadowStep support drawing a shadow below lines or around points to make busy plots more aesthetically pleasing. GeomGlowLine, GeomGlowPath, GeomGlowPoint, and GeomGlowStep support adding neon glow around lines or points to get a steampunk style.
 }
 \seealso{
 Useful links:
@@ -18,6 +18,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Marc Menem \email{marc.menem@m4x.org}
+
+Other contributors:
+\itemize{
+  \item Eli Pousson \email{eli.pousson@gmail.com} (\href{https://orcid.org/0000-0001-8280-1706}{ORCID}) [contributor]
+}
 
 }
 \keyword{internal}

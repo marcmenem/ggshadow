@@ -228,8 +228,8 @@ palette
 
 Other colour scales: 
 \code{\link{scale_brewer}},
-\code{\link{scale_colour_hue}},
-\code{\link{scale_colour_steps}},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
 \code{\link{scale_grey}},
 \code{\link{scale_viridis}}
 }

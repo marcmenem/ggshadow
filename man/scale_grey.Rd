@@ -102,8 +102,8 @@ p + geom_glowpoint() + scale_shadowcolour_grey() + guides(shadowcolour='none')
 \seealso{
 Other colour scales: 
 \code{\link{scale_brewer}},
-\code{\link{scale_colour_hue}},
-\code{\link{scale_colour_steps}},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
 \code{\link{scale_gradient}},
 \code{\link{scale_viridis}}
 }

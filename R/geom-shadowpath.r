@@ -142,6 +142,8 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                         )
                       }
 
+                      data$shadowlinewidth <- data$shadowlinewidth %||% data$shadowsize
+
                       # must be sorted on group
                       data <- data[order(data$group), , drop = FALSE]
                       munched <- coord_munch(coord, data, panel_params)
@@ -183,7 +185,7 @@ GeomShadowPath <- ggproto("GeomShadowPath", Geom,
                         munched.s <- munched
                         munched.s$shadow <- T
                         munched.s$colour <- munched.s$shadowcolour
-                        munched.s$linewidth <- munched.s$shadowlinewidth %||% munched.s$shadowsize
+                        munched.s$linewidth <- munched.s$shadowlinewidth
                         munched.s$alpha <- munched.s$shadowalpha
 
                         munched$shadow <- F

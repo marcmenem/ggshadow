@@ -64,11 +64,11 @@ ggplot(
   aes(date, value01,
     group = variable,
     colour = value01,
-    shadowsize = 5 * (1 - value01)
+    shadowlinewidth = 5 * (1 - value01)
   )
 ) +
   geom_shadowline(
-      shadowcolor = "grey",
+    shadowcolour = "grey",
     shadowalpha = 0.5
   )
 ```
