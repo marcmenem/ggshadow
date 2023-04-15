@@ -19,7 +19,7 @@ Depends:
     R (>= 3.4.0)
 Imports:
     cli,
-    ggplot2 (>= 3.4.1),
+    ggplot2 (>= 3.4.2),
     grid,
     lifecycle,
     rlang,
