@@ -553,13 +553,3 @@ single_value.factor <- function(x, ...) {
   # Panels are encoded as factor numbers and can never be missing (NA)
   identical(levels(x), "1")
 }
-
-# from asNamespace("ggplot2") ----
-# datetime_scale is exported in the development version of ggplot2 so this
-# asNamespace import can be removed after the development version is released.
-
-#' @noRd
-#' @keywords ggplot2 internal
-datetime_scale <- function(...) {
-  asNamespace("ggplot2")$datetime_scale(...)
-}

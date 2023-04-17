@@ -11,6 +11,7 @@
 #' @importFrom ggplot2 .stroke
 #' @importFrom ggplot2 has_flipped_aes
 #' @importFrom ggplot2 flip_data
+#' @importFrom ggplot2 datetime_scale
 #' @importFrom grid gpar
 ## usethis namespace: end
 NULL
