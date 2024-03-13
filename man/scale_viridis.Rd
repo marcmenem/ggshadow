@@ -74,14 +74,14 @@ reversed.}
 \item{option}{A character string indicating the color map option to use.
 Eight options are available:
 \itemize{
- \item "magma" (or "A")
- \item "inferno" (or "B")
- \item "plasma" (or "C")
- \item "viridis" (or "D")
- \item "cividis" (or "E")
- \item "rocket" (or "F")
- \item "mako" (or "G")
- \item "turbo" (or "H")
+\item \code{"magma"} (or \code{"A"})
+\item \code{"inferno"} (or \code{"B"})
+\item \code{"plasma"} (or \code{"C"})
+\item \code{"viridis"} (or \code{"D"})
+\item \code{"cividis"} (or \code{"E"})
+\item \code{"rocket"} (or \code{"F"})
+\item \code{"mako"} (or \code{"G"})
+\item \code{"turbo"} (or \code{"H"})
 }}
 
 \item{aesthetics}{Character string or vector of character strings listing the
@@ -132,8 +132,8 @@ p + geom_glowpoint() + scale_shadowcolour_ordinal() + guides(shadowcolour='none'
 \seealso{
 Other colour scales: 
 \code{\link{scale_brewer}},
-\code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_hue}},
+\code{\link{scale_colour_steps}},
 \code{\link{scale_gradient}},
 \code{\link{scale_grey}}
 }
