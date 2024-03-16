@@ -99,7 +99,7 @@ geom_glowpath <- function(mapping = NULL, data = NULL,
 #' @importFrom grid gList gpar segmentsGrob polylineGrob polygonGrob
 #' @importFrom stats complete.cases ave
 #' @importFrom scales alpha
-#' @importFrom ggplot2 draw_key_path
+#' @importFrom ggplot2 draw_key_path coord_munch
 #' @importFrom vctrs new_data_frame
 GeomGlowPath <- ggproto("GeomGlowPath", Geom,
                     required_aes = c("x", "y"),
@@ -167,7 +167,7 @@ GeomGlowPath <- ggproto("GeomGlowPath", Geom,
 
                       # must be sorted on group
                       data <- data[order(data$group), , drop = FALSE]
-                      munched <- coord_munch(coord, data, panel_params)
+                      munched <- ggplot2::coord_munch(coord, data, panel_params)
 
                       # cat( crayon::yellow('draw_panel munched (GlowPath)\n') )
                       # print( munched %>% as_tibble )
